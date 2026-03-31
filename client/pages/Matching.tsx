@@ -215,6 +215,34 @@ function MatchCard({ profile, onViewProfile }: { profile: MatchProfile; onViewPr
           </div>
         </div>
 
+        {/* Compatibility Breakdown Mini */}
+        <div className="mt-3 space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-500">Budget</span>
+            <div className="flex gap-0.5">
+              {[...Array(8)].map((_, i) => (
+                <span key={i} className={i < 7 ? "text-red-500" : "text-slate-200"}>▰</span>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-500">Style</span>
+            <div className="flex gap-0.5">
+              {[...Array(9)].map((_, i) => (
+                <span key={i} className={i < 8 ? "text-red-500" : "text-slate-200"}>▰</span>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-500">Personality</span>
+            <div className="flex gap-0.5">
+              {[...Array(7)].map((_, i) => (
+                <span key={i} className={i < 6 ? "text-red-500" : "text-slate-200"}>▰</span>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Match indicators */}
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <BadgePill tone="red">Budget Match ✓</BadgePill>

@@ -89,7 +89,50 @@ export default function Verification() {
                 </div>
               </div>
             </div>
-            <div className="p-4">
+          </section>
+
+          {/* Trust Breakdown - แยก section ใหม่ */}
+          <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 mb-4">
+              Trust Breakdown
+            </h2>
+            <p className="text-xs text-slate-400 mb-4">Based on:</p>
+            
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-amber-400 text-lg">⭐</span>
+                  <span className="text-sm text-slate-600">Rating</span>
+                </div>
+                <span className="text-sm font-bold text-slate-900">{averageRating}</span>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-blue-400 text-lg">⏰</span>
+                  <span className="text-sm text-slate-600">Punctuality</span>
+                </div>
+                <span className="text-sm font-bold text-green-600">High</span>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-red-400 text-lg">✕</span>
+                  <span className="text-sm text-slate-600">Cancellation</span>
+                </div>
+                <span className="text-sm font-bold text-green-600">Rare</span>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-purple-400 text-lg">💬</span>
+                  <span className="text-sm text-slate-600">Communication</span>
+                </div>
+                <span className="text-sm font-bold text-green-600">Excellent</span>
+              </div>
+            </div>
+            
+            <div className="mt-4 pt-4 border-t border-slate-100">
               <div className="flex items-center justify-between">
                 <div className="text-center flex-1">
                   <p className="text-2xl font-bold text-slate-900">{reviewCount}</p>

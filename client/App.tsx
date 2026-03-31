@@ -15,6 +15,7 @@ import Trip from "./pages/Trip";
 import Chat from "./pages/Chat";
 import Verification from "./pages/Verification";
 import Reviews from "./pages/Reviews";
+import Profile from "./pages/Profile";
 import SplashScreen from "./pages/SplashScreen";
 
 const queryClient = new QueryClient();
@@ -35,7 +36,7 @@ const App = () => (
           <Route path="/chat" element={<Chat />} />
           <Route path="/verification" element={<Verification />} />
           <Route path="/reviews" element={<Reviews />} />
-          <Route path="/profile" element={<Verification />} />
+          <Route path="/profile" element={<Profile />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

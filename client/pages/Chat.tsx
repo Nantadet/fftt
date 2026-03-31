@@ -121,13 +121,22 @@ export default function Chat() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="flex items-center gap-2">
+            {/* Cancel Button */}
             <button 
-              onClick={() => setShowSafetyMenu(!showSafetyMenu)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-600 transition hover:bg-red-100"
+              onClick={() => navigate("/home")}
+              className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
             >
-              <ShieldIcon />
+              Cancel
             </button>
+            
+            <div className="relative">
+              <button 
+                onClick={() => setShowSafetyMenu(!showSafetyMenu)}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-600 transition hover:bg-red-100"
+              >
+                <ShieldIcon />
+              </button>
             
             {showSafetyMenu && (
               <div className="absolute right-0 top-12 z-50 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl">
@@ -163,6 +172,7 @@ export default function Chat() {
                 </button>
               </div>
             )}
+            </div>
           </div>
         </header>
 
@@ -315,6 +325,14 @@ export default function Chat() {
             <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
           </div>
         </nav>
+
+        {/* SOS Button - เด่นชัดขึ้น */}
+        <button
+          onClick={handleSOS}
+          className="fixed bottom-24 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_8px_30px_rgba(239,68,68,0.5)] transition-all hover:scale-110 hover:bg-red-700 animate-pulse"
+        >
+          <span className="text-xs font-bold">SOS</span>
+        </button>
       </div>
     </div>
   );

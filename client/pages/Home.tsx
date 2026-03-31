@@ -19,11 +19,12 @@ export default function Home() {
           </div>
 
           <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
-            <SearchIcon />
+            <StaffIcon />
           </button>
         </header>
 
         <main className="mt-4 flex-1 space-y-4 pb-5">
+          {/* Welcome Section - Trust Score ขนาดเล็กลง */}
           <section className="rounded-[2rem] border border-red-100 bg-white p-4 shadow-[0_16px_42px_rgba(239,68,68,0.08)]">
             <div className="flex items-start justify-between gap-3">
               <div>
@@ -35,19 +36,34 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="rounded-[1.5rem] bg-gradient-to-br from-red-500 to-red-600 p-4 text-white shadow-lg shadow-red-200">
+              {/* Trust Score ขนาดเล็กลง */}
+              <div className="rounded-[1.5rem] bg-gradient-to-br from-red-500 to-red-600 px-4 py-3 text-white shadow-lg shadow-red-200">
                 <p className="text-[10px] uppercase tracking-[0.28em] text-red-100">Trust score</p>
-                <p className="mt-1 text-3xl font-black leading-none">94</p>
+                <p className="mt-1 text-2xl font-black leading-none">94</p>
               </div>
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3">
               <MetricCard label="Compatibility" value="92%" accent="red" />
               <MetricCard label="Reviews" value="4.9⭐" accent="rose" />
-              <MetricCard label="Safety" value="A+" accent="slate" />
+              {/* Safety A+ เปลี่ยนเป็น Safety level: High */}
+              <MetricCard label="Safety level" value="High" accent="slate" />
             </div>
           </section>
 
+          {/* Quick Actions */}
+          <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-3">
+              <button className="flex-1 rounded-xl bg-gradient-to-r from-red-500 to-red-600 py-3 text-sm font-bold text-white shadow-md">
+                Find Travel Companion
+              </button>
+              <button className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600">
+                How it work?
+              </button>
+            </div>
+          </section>
+
+          {/* Filters */}
           <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
@@ -64,52 +80,78 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="space-y-3">
-            <div className="flex items-center justify-between px-1">
+          {/* Suggested Matches - แนวนอนเลื่อนได้ */}
+          <section>
+            <div className="flex items-center justify-between px-1 mb-3">
               <h2 className="text-lg font-bold text-slate-900">Suggested matches</h2>
               <span className="text-sm text-slate-400">See all</span>
             </div>
 
-            <MatchCard
-              name="Alex"
-              age={29}
-              location="Chiang Mai · Nature"
-              compatibility="92%"
-              rating="4.9"
-              redFlag="Rare cancellations"
-              verified
-              accent="from-red-500 to-rose-500"
-            />
-
-            <MatchCard
-              name="June"
-              age={21}
-              location="Bangkok · Nightlife"
-              compatibility="87%"
-              rating="4.7"
-              redFlag="Budget mismatch"
-              verified
-              accent="from-rose-500 to-orange-400"
-            />
+            <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
+              <div className="snap-start shrink-0 w-72">
+                <MatchCard
+                  name="Alex"
+                  age={29}
+                  location="Chiang Mai · Nature"
+                  compatibility="92%"
+                  rating="4.9"
+                  redFlag="Rare cancellations"
+                  verified
+                  accent="from-red-500 to-rose-500"
+                />
+              </div>
+              <div className="snap-start shrink-0 w-72">
+                <MatchCard
+                  name="June"
+                  age={21}
+                  location="Bangkok · Nightlife"
+                  compatibility="87%"
+                  rating="4.7"
+                  redFlag="Budget mismatch"
+                  verified
+                  accent="from-rose-500 to-orange-400"
+                />
+              </div>
+              <div className="snap-start shrink-0 w-72">
+                <MatchCard
+                  name="Maya"
+                  age={26}
+                  location="Phuket · Beach"
+                  compatibility="90%"
+                  rating="4.8"
+                  redFlag=""
+                  verified
+                  accent="from-blue-500 to-cyan-400"
+                />
+              </div>
+            </div>
           </section>
 
+          {/* Upcoming Trips - แนะนำสถานที่ */}
           <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-slate-900">Why this match?</h2>
-              <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600">
-                Trust score 94
-              </span>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-bold text-slate-900">Upcoming Trips</h2>
+              <button className="text-sm text-slate-400">...</button>
             </div>
 
-            <div className="mt-4 space-y-3">
-              <BreakdownRow label="Budget" value={88} />
-              <BreakdownRow label="Travel style" value={95} />
-              <BreakdownRow label="Personality" value={84} />
-              <BreakdownRow label="Reviews" value={97} />
-            </div>
-
-            <div className="mt-4 rounded-2xl bg-slate-50 px-4 py-3 text-sm text-slate-600">
-              <span className="font-semibold text-slate-800">Review summary:</span> friendly, punctual, and easy to plan with.
+            <div className="rounded-2xl overflow-hidden border border-slate-200">
+              <div className="h-32 bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white text-4xl">
+                🏔️
+              </div>
+              <div className="p-4">
+                <h3 className="font-bold text-slate-900">Chiang Mai - 3 Day</h3>
+                <p className="text-sm text-slate-500 mt-1">[May 15-17]</p>
+                <div className="mt-3 space-y-1 text-xs text-slate-600">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    Tha phae
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    Doikham Temple
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </main>
@@ -185,11 +227,11 @@ function MatchCard({
 }) {
   return (
     <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
-      <div className={`h-28 bg-gradient-to-br ${accent} p-4 text-white`}>
+      <div className={`h-24 bg-gradient-to-br ${accent} p-4 text-white`}>
         <div className="flex items-start justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.28em] text-white/80">Compatibility</p>
-            <p className="mt-2 text-4xl font-black leading-none">{compatibility}</p>
+            <p className="mt-1 text-3xl font-black leading-none">{compatibility}</p>
           </div>
           <div className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold backdrop-blur">
             {verified ? "Verified" : "Trust pending"}
@@ -200,54 +242,24 @@ function MatchCard({
       <div className="p-4">
         <div className="flex items-center justify-between gap-3">
           <div>
-            <h3 className="text-xl font-black text-slate-900">
+            <h3 className="text-lg font-black text-slate-900">
               {name}, {age}
             </h3>
-            <p className="mt-1 text-sm text-slate-500">{location}</p>
+            <p className="mt-0.5 text-sm text-slate-500">{location}</p>
           </div>
 
           <div className="text-right">
             <p className="text-xs uppercase tracking-[0.24em] text-slate-400">Rating</p>
-            <p className="mt-1 text-lg font-black text-slate-900">{rating}</p>
+            <p className="mt-0.5 text-lg font-black text-slate-900">{rating}</p>
           </div>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2">
+        <div className="mt-3 flex flex-wrap items-center gap-2">
           <BadgePill tone="red">Verified badge</BadgePill>
-          <BadgePill tone="slate">Trust score 91</BadgePill>
-          <BadgePill tone="rose">{redFlag}</BadgePill>
-        </div>
-
-        <div className="mt-4 grid grid-cols-3 gap-2 text-xs text-slate-500">
-          <div className="rounded-2xl bg-slate-50 px-3 py-2 text-center">
-            <span className="block font-semibold text-slate-800">Budget</span>
-            88%
-          </div>
-          <div className="rounded-2xl bg-slate-50 px-3 py-2 text-center">
-            <span className="block font-semibold text-slate-800">Style</span>
-            93%
-          </div>
-          <div className="rounded-2xl bg-slate-50 px-3 py-2 text-center">
-            <span className="block font-semibold text-slate-800">Respect</span>
-            96%
-          </div>
+          {redFlag && <BadgePill tone="rose">{redFlag}</BadgePill>}
         </div>
       </div>
     </article>
-  );
-}
-
-function BreakdownRow({ label, value }: { label: string; value: number }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-medium text-slate-600">{label}</span>
-        <span className="font-semibold text-slate-900">{value}%</span>
-      </div>
-      <div className="mt-2 h-2 rounded-full bg-slate-100">
-        <div className="h-2 rounded-full bg-gradient-to-r from-red-500 to-rose-500" style={{ width: `${value}%` }} />
-      </div>
-    </div>
   );
 }
 
@@ -293,11 +305,12 @@ function BackIcon() {
   );
 }
 
-function SearchIcon() {
+function StaffIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="11" cy="11" r="6.5" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M16 16l4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <circle cx="17" cy="7" r="2" fill="currentColor" />
     </svg>
   );
 }
