@@ -20,44 +20,46 @@ export default function Profile() {
             <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Profile</p>
           </div>
 
-          <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
-            <SettingsIcon />
+          {/* User Icon - กดไปหน้า Verification */}
+          <button 
+            onClick={() => navigate("/verification")}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
+          >
+            <UserIcon />
           </button>
         </header>
 
         <main className="mt-4 flex-1 space-y-4 pb-5">
-          {/* Profile Header */}
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
+          {/* Profile Card - แบบในรูป */}
+          <section className="rounded-[2rem] border border-red-100 bg-white p-5 shadow-[0_16px_42px_rgba(239,68,68,0.08)]">
             <div className="flex items-start gap-4">
-              <div className="h-20 w-20 rounded-full bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center text-3xl font-bold text-white">
+              <div className="h-16 w-16 rounded-full bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center text-2xl font-bold text-white">
                 A
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <h1 className="text-2xl font-black text-slate-900">Anna Lee</h1>
-                  <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-bold text-blue-600">
-                    ✓ Verified
-                  </span>
-                </div>
-                <p className="text-sm text-slate-500">Responsible traveler</p>
-                <div className="mt-2 flex items-center gap-3">
-                  <span className="text-sm font-medium text-slate-600">
-                    Trust score: <span className="font-bold text-red-600">97</span>
-                  </span>
+                <h1 className="text-xl font-black text-slate-900">Anna Lee</h1>
+                <p className="text-sm text-slate-500">Verified traveler</p>
+                <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600">
+                  <span>✓</span>
+                  <span>Verified</span>
                 </div>
               </div>
+              <div className="text-right">
+                <p className="text-xs text-slate-400">Trust score</p>
+                <p className="text-2xl font-black text-red-500">97</p>
+              </div>
             </div>
-          </section>
 
-          {/* Travel Mindset Summary */}
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 mb-3">
-              Travel Mindset Summary
-            </h2>
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-600">
-                "Balanced traveler who enjoys culture, cafes, and relaxed schedules."
-              </p>
+            {/* Stats */}
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-3 text-center">
+                <p className="text-xs text-slate-400 mb-1">Travel Mindset</p>
+                <p className="text-sm font-bold text-slate-900">Balanced</p>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-3 text-center">
+                <p className="text-xs text-slate-400 mb-1">Budget</p>
+                <p className="text-sm font-bold text-slate-900">$500-1,000</p>
+              </div>
             </div>
           </section>
 
@@ -81,14 +83,6 @@ export default function Profile() {
                 <span className="text-sm font-bold text-slate-900">Small group</span>
               </div>
             </div>
-          </section>
-
-          {/* Budget Preference */}
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 mb-3">
-              Budget Preference
-            </h2>
-            <p className="text-lg font-bold text-slate-900">$500 - $1,000 per trip</p>
           </section>
 
           {/* Travel History */}
@@ -129,7 +123,7 @@ export default function Profile() {
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
           <NavItem to="/trip" label="Trips" icon={<BagIcon />} />
           <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
-          <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} active />
+          <NavItem to="/verification" label="Trust" icon={<ShieldIconSmall />} active />
         </div>
       </nav>
     </div>
@@ -159,11 +153,11 @@ function BackIcon() {
   );
 }
 
-function SettingsIcon() {
+function UserIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M19 12h2M3 12h2M12 5V3M12 21v-2M17 7l1.5-1.5M5.5 19.5L7 18M17 17l1.5 1.5M5.5 4.5L7 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
@@ -204,11 +198,10 @@ function ChatIcon() {
   );
 }
 
-function ProfileIcon() {
+function ShieldIconSmall() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
 }

@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff5f5_0%,_#ffffff_35%,_#fffdfd_100%)] text-slate-900">
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 pb-28 pt-4 sm:px-5">
@@ -18,9 +19,26 @@ export default function Home() {
             <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">home page</p>
           </div>
 
-          <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
-            <StaffIcon />
-          </button>
+          <div className="flex items-center gap-2">
+            {/* User Settings - ไปหน้า Verification */}
+            <button 
+              onClick={() => navigate("/verification")}
+              className="flex flex-col items-center gap-1"
+            >
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
+                <UserIcon />
+              </div>
+              <span className="text-[10px] text-slate-500">Profile</span>
+            </button>
+            
+            {/* Staff Contact */}
+            <button className="flex flex-col items-center gap-1">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
+                <StaffIcon />
+              </div>
+              <span className="text-[10px] text-slate-500">Contact staff</span>
+            </button>
+          </div>
         </header>
 
         <main className="mt-4 flex-1 space-y-4 pb-5">
@@ -294,6 +312,15 @@ function NavItem({
       <span className={active ? "scale-110" : ""}>{icon}</span>
       <span className="font-medium">{label}</span>
     </Link>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
   );
 }
 
