@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 interface Message {
   id: string;
@@ -326,13 +327,17 @@ export default function Chat() {
           </div>
         </nav>
 
-        {/* SOS Button - เด่นชัดขึ้น */}
-        <button
+        {/* SOS Button - ลากได้ */}
+        <motion.button
+          drag
+          dragMomentum={false}
+          whileDrag={{ scale: 1.2, cursor: "grabbing" }}
+          whileTap={{ scale: 0.95 }}
           onClick={handleSOS}
-          className="fixed bottom-24 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_8px_30px_rgba(239,68,68,0.5)] transition-all hover:scale-110 hover:bg-red-700 animate-pulse"
+          className="fixed bottom-24 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_8px_30px_rgba(239,68,68,0.5)] cursor-grab hover:bg-red-700"
         >
-          <span className="text-xs font-bold">SOS</span>
-        </button>
+          <span className="text-xs font-bold select-none">SOS</span>
+        </motion.button>
       </div>
     </div>
   );
