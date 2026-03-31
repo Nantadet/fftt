@@ -20,12 +20,12 @@ export default function Profile() {
             <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Profile</p>
           </div>
 
-          {/* User Icon - กดไปหน้า Verification */}
+          {/* Trust Icon - กดไปหน้า Verification */}
           <button 
             onClick={() => navigate("/verification")}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
           >
-            <UserIcon />
+            <ShieldIconSmall />
           </button>
         </header>
 
@@ -123,7 +123,7 @@ export default function Profile() {
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
           <NavItem to="/trip" label="Trips" icon={<BagIcon />} />
           <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
-          <NavItem to="/verification" label="Trust" icon={<ShieldIconSmall />} active />
+          <NavItem to="/profile" label="Profile" icon={<UserIcon />} active />
         </div>
       </nav>
     </div>
