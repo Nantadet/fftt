@@ -19,26 +19,13 @@ export default function Home() {
             <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">home page</p>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* User Settings - ไปหน้า Verification */}
-            <button 
-              onClick={() => navigate("/verification")}
-              className="flex flex-col items-center gap-1"
-            >
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
-                <UserIcon />
-              </div>
-              <span className="text-[10px] text-slate-500">Profile</span>
-            </button>
-            
-            {/* Staff Contact */}
-            <button className="flex flex-col items-center gap-1">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
-                <StaffIcon />
-              </div>
-              <span className="text-[10px] text-slate-500">Contact staff</span>
-            </button>
-          </div>
+          {/* Staff Contact */}
+          <button className="flex flex-col items-center gap-1">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
+              <StaffIcon />
+            </div>
+            <span className="text-[10px] text-slate-500">Contact staff</span>
+          </button>
         </header>
 
         <main className="mt-4 flex-1 space-y-4 pb-5">
