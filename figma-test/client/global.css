@@ -1,0 +1,73 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Nunito:wght@700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 18% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 18% 18%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 18% 18%;
+
+    --primary: 0 80% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 220 18% 18%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 220 9% 50%;
+
+    --accent: 0 100% 97%;
+    --accent-foreground: 220 18% 18%;
+
+    --destructive: 0 78% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 92%;
+    --ring: 0 80% 58%;
+
+    --radius: 0.9rem;
+
+    --withme-red: 0 80% 58%;
+    --withme-red-soft: 0 100% 96%;
+    --withme-red-deep: 0 70% 45%;
+    --withme-surface: 0 0% 98%;
+    --withme-ink: 220 18% 18%;
+    --withme-muted: 220 9% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+}
+
+@layer utilities {
+  .font-nunito {
+    font-family: "Nunito", sans-serif;
+  }
+}
