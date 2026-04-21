@@ -1,10 +1,7 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PremiumPopup from "@/components/PremiumPopup";
 
 export default function Profile() {
   const navigate = useNavigate();
-  const [showPremium, setShowPremium] = useState(false);
 
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff5f5_0%,_#ffffff_35%,_#fffdfd_100%)] text-slate-900">
@@ -23,29 +20,24 @@ export default function Profile() {
             <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Profile</p>
           </div>
 
-          {/* Trust Icon - กดไปหน้า Verification */}
+          {/* User Icon - กดไปหน้า Verification */}
           <button 
             onClick={() => navigate("/verification")}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
           >
-            <ShieldIconSmall />
+            <UserIcon />
           </button>
         </header>
 
         <main className="mt-4 flex-1 space-y-4 pb-5">
-          {/* Profile Card */}
+          {/* Profile Card - แบบในรูป */}
           <section className="rounded-[2rem] border border-red-100 bg-white p-5 shadow-[0_16px_42px_rgba(239,68,68,0.08)]">
             <div className="flex items-start gap-4">
               <div className="h-16 w-16 rounded-full bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center text-2xl font-bold text-white">
                 A
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-xl font-black text-slate-900">Anna Lee</h1>
-                  <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-xs font-bold text-blue-600">
-                    ✓ Verified
-                  </span>
-                </div>
+                <h1 className="text-xl font-black text-slate-900">Anna Lee</h1>
                 <p className="text-sm text-slate-500">Verified traveler</p>
                 <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600">
                   <span>✓</span>
@@ -120,7 +112,9 @@ export default function Profile() {
             className="flex w-full items-center gap-3 rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm transition hover:bg-slate-50"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-500">
-              <CrownIcon />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 16L3 5l5.5 3L12 4l3.5 4L21 5l-2 11H5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+              </svg>
             </div>
             <div className="text-left">
               <p className="text-sm font-bold text-slate-900">Switch to Organizer Mode</p>
@@ -135,11 +129,13 @@ export default function Profile() {
 
           {/* Premium Upgrade */}
           <button 
-            onClick={() => setShowPremium(true)}
+            onClick={() => alert("Upgrade to Premium for advanced filters & unlimited chat!")}
             className="flex w-full items-center gap-3 rounded-[2rem] border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-4 shadow-sm transition hover:shadow-md"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-500">
-              <StarIcon />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              </svg>
             </div>
             <div className="text-left">
               <p className="text-sm font-bold text-amber-800">Upgrade to Premium</p>
@@ -162,16 +158,14 @@ export default function Profile() {
         </main>
       </div>
 
-      <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
-
       {/* Bottom Nav */}
       <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
           <NavItem to="/home" label="Home" icon={<HomeIcon />} />
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
-          <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
           <NavItem to="/trips" label="Trips" icon={<BagIcon />} />
-          <NavItem to="/organizer" label="Organizer" icon={<CrownIcon />} />
+          <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
+          <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} active />
         </div>
       </nav>
     </div>
@@ -201,11 +195,10 @@ function BackIcon() {
   );
 }
 
-function UserIcon() {
+function CrownIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M5 16L3 5l5.5 3L12 4l3.5 4L21 5l-2 11H5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -246,26 +239,20 @@ function ChatIcon() {
   );
 }
 
-function ShieldIconSmall() {
+function ProfileIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }
 
-function CrownIcon() {
+function UserIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 16L3 5l5.5 3L12 4l3.5 4L21 5l-2 11H5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function StarIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   );
 }

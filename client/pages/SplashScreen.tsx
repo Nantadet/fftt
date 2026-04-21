@@ -8,7 +8,7 @@ export default function SplashScreen() {
   if (step === 1) {
     return (
       <div className="min-h-screen relative flex flex-col items-center justify-center overflow-hidden">
-        {/* Background image simulation - sunset mountain gradient */}
+        {/* Background gradient like sunset */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-400/80 via-rose-400/80 to-orange-400/80" />
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-60"
@@ -19,12 +19,10 @@ export default function SplashScreen() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
         
         <div className="relative z-10 flex flex-col items-center px-6 text-center">
-          {/* Logo */}
           <h1 className="font-nunito text-5xl font-black tracking-tight text-white drop-shadow-lg">
             WITHME
           </h1>
           
-          {/* Tagline */}
           <div className="mt-6 space-y-1">
             <p className="text-2xl font-bold text-white drop-shadow-md">
               Match Your Vibe.
@@ -34,12 +32,10 @@ export default function SplashScreen() {
             </p>
           </div>
 
-          {/* Subtitle */}
           <p className="mt-6 text-sm text-white/90 max-w-xs leading-relaxed drop-shadow">
             Find travel buddies who match your travel style, budget, and personality.
           </p>
 
-          {/* Get Started Button */}
           <button
             onClick={() => setStep(2)}
             className="mt-10 w-full max-w-xs rounded-2xl bg-red-500 px-8 py-4 text-white font-bold text-lg shadow-[0_18px_30px_rgba(239,68,68,0.4)] transition hover:scale-105 hover:bg-red-600"
@@ -64,7 +60,6 @@ export default function SplashScreen() {
             </h1>
 
             <div className="space-y-6">
-              {/* Feature 1: Matching + Premium */}
               <div className="flex items-start gap-4 rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-500 text-white">
                   <SearchUserIcon />
@@ -77,7 +72,6 @@ export default function SplashScreen() {
                 </div>
               </div>
 
-              {/* Feature 2: Safety */}
               <div className="flex items-start gap-4 rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-500 text-white">
                   <ShieldCheckIcon />
@@ -90,7 +84,6 @@ export default function SplashScreen() {
                 </div>
               </div>
 
-              {/* Feature 3: Agreement */}
               <div className="flex items-start gap-4 rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-500 text-white">
                   <AgreementIcon />
@@ -105,7 +98,6 @@ export default function SplashScreen() {
             </div>
           </div>
 
-          {/* Dots */}
           <div className="flex justify-center gap-2 mb-6">
             <div className="h-2 w-2 rounded-full bg-slate-300" />
             <div className="h-2 w-2 rounded-full bg-red-500" />
@@ -123,7 +115,6 @@ export default function SplashScreen() {
     );
   }
 
-  // Step 3
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center relative overflow-hidden">
       <div className="absolute top-20 left-10 h-40 w-40 rounded-full bg-red-100/50 blur-3xl" />
@@ -144,7 +135,6 @@ export default function SplashScreen() {
           </p>
         </div>
 
-        {/* Dots */}
         <div className="flex justify-center gap-2 mt-10 mb-10">
           <div className="h-2 w-2 rounded-full bg-slate-300" />
           <div className="h-2 w-2 rounded-full bg-slate-300" />

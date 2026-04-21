@@ -7,6 +7,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import UpcomingTrips from "./pages/UpcomingTrips";
+import OrganizerMode from "./pages/OrganizerMode";
+import TripReview from "./pages/TripReview";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Onboarding from "./pages/Onboarding";
@@ -17,9 +20,6 @@ import Verification from "./pages/Verification";
 import Reviews from "./pages/Reviews";
 import Profile from "./pages/Profile";
 import SplashScreen from "./pages/SplashScreen";
-import UpcomingTrips from "./pages/UpcomingTrips";
-import TripReview from "./pages/TripReview";
-import OrganizerMode from "./pages/OrganizerMode";
 
 const queryClient = new QueryClient();
 
