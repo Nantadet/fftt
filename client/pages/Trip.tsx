@@ -1,9 +1,49 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface TripItem {
+  id: string;
+  name: string;
+  age: number;
+  location: string;
+  dateRange: string;
+  status: "awaiting" | "confirmed" | "upcoming" | "completed";
+  imageColor: string;
+}
+
+const trips: TripItem[] = [
+  {
+    id: "1",
+    name: "Tom",
+    age: 29,
+    location: "Bali, 28 May, 1",
+    dateRange: "April - May 1",
+    status: "awaiting",
+    imageColor: "from-blue-400 to-cyan-500",
+  },
+  {
+    id: "2",
+    name: "Lisa",
+    age: 26,
+    location: "Chiang Mai, Thailand",
+    dateRange: "May 5 - May 8",
+    status: "confirmed",
+    imageColor: "from-emerald-400 to-teal-500",
+  },
+  {
+    id: "3",
+    name: "Mark",
+    age: 30,
+    location: "Seoul, 1 May 1",
+    dateRange: "May 12 - May 15",
+    status: "upcoming",
+    imageColor: "from-violet-400 to-purple-500",
+  },
+];
+
 export default function Trip() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<"create" | "agreement">("create");
+  const [view, setView] = useState<"list" | "create" | "agreement">("list");
   
   // Trip creation state
   const [dates, setDates] = useState({ start: "2024-05-20", end: "2024-05-23" });
@@ -41,7 +81,7 @@ export default function Trip() {
     navigate("/chat");
   };
 
-  if (step === "agreement") {
+  if (view === "agreement") {
     return (
       <AgreementView 
         sharedRules={sharedRules}
@@ -50,9 +90,131 @@ export default function Trip() {
         setCostSplit={setCostSplit}
         cancellationPolicy={cancellationPolicy}
         setCancellationPolicy={setCancellationPolicy}
-        onBack={() => setStep("create")}
+        onBack={() => setView("create")}
         onConfirm={handleConfirm}
       />
+    );
+  }
+
+  if (view === "list") {
+    return (
+      <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff5f5_0%,_#ffffff_35%,_#fffdfd_100%)] text-slate-900">
+        <div className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 pb-28 pt-4 sm:px-5">
+          {/* Header */}
+          <header className="flex items-center justify-between rounded-[1.6rem] border border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">
+            <button 
+              onClick={() => navigate(-1)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
+            >
+              <BackIcon />
+            </button>
+
+            <div className="text-center">
+              <p className="font-nunito text-xl font-black tracking-[0.2em] text-red-500">WITH ME</p>
+              <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Upcoming Trips</p>
+            </div>
+
+            <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
+              <BellIcon />
+            </button>
+          </header>
+
+          <main className="mt-4 flex-1 space-y-4 pb-5">
+            {/* Create Trip Button */}
+            <button
+              onClick={() => setView("create")}
+              className="w-full rounded-2xl bg-gradient-to-r from-red-500 to-red-600 py-4 font-nunito text-lg font-bold text-white shadow-[0_18px_30px_rgba(239,68,68,0.25)] transition hover:from-red-600 hover:to-red-700 active:scale-[0.99]"
+            >
+              + Create New Trip
+            </button>
+
+            {trips.map((trip) => (
+              <article key={trip.id} className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <div className={`h-16 w-16 shrink-0 rounded-xl bg-gradient-to-br ${trip.imageColor} flex items-center justify-center text-xl font-bold text-white`}>
+                    {trip.name.charAt(0)}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-base font-black text-slate-900">
+                        {trip.name}, {trip.age}
+                      </h3>
+                      {trip.status === "awaiting" && (
+                        <span className="shrink-0 rounded-full bg-amber-50 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">
+                          ⏳ Awaiting Agreement
+                        </span>
+                      )}
+                      {trip.status === "confirmed" && (
+                        <span className="shrink-0 rounded-full bg-green-50 px-2.5 py-0.5 text-[10px] font-semibold text-green-600">
+                          ✓ Agreement Confirmed
+                        </span>
+                      )}
+                      {trip.status === "upcoming" && (
+                        <span className="shrink-0 rounded-full bg-blue-50 px-2.5 py-0.5 text-[10px] font-semibold text-blue-600">
+                          🗓 Trip Upcoming
+                        </span>
+                      )}
+                    </div>
+                    <div className="mt-0.5 flex items-center gap-1 text-xs text-slate-500">
+                      <LocationPinIcon />
+                      {trip.location}
+                    </div>
+                    {trip.dateRange && (
+                      <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                        {trip.dateRange}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  <button 
+                    onClick={() => navigate(`/profile`)}
+                    className="rounded-xl border border-slate-200 bg-white py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+                  >
+                    View Profile
+                  </button>
+                  {trip.status === "awaiting" && (
+                    <button 
+                      onClick={() => navigate("/trip")}
+                      className="rounded-xl bg-red-500 py-2.5 text-sm font-bold text-white transition hover:bg-red-600"
+                    >
+                      Send Request
+                    </button>
+                  )}
+                  {trip.status === "confirmed" && (
+                    <button 
+                      onClick={() => navigate("/chat")}
+                      className="rounded-xl bg-green-500 py-2.5 text-sm font-bold text-white transition hover:bg-green-600"
+                    >
+                      Agreement Confirmed
+                    </button>
+                  )}
+                  {trip.status === "upcoming" && (
+                    <button 
+                      onClick={() => navigate("/chat")}
+                      className="rounded-xl bg-slate-100 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-200"
+                    >
+                      🗓 Trip Upcoming
+                    </button>
+                  )}
+                </div>
+              </article>
+            ))}
+          </main>
+        </div>
+
+        {/* Bottom Nav */}
+        <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur">
+          <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
+            <NavItem to="/home" label="Home" icon={<HomeIcon />} />
+            <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
+            <NavItem to="/trip" label="Trips" icon={<BagIcon />} active />
+            <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
+            <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
+          </div>
+        </nav>
+      </div>
     );
   }
 
@@ -62,7 +224,7 @@ export default function Trip() {
         {/* Header */}
         <header className="flex items-center justify-between rounded-[1.6rem] border border-slate-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">
           <button 
-            onClick={() => navigate(-1)}
+            onClick={() => setView("list")}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50"
           >
             <BackIcon />
@@ -218,7 +380,7 @@ export default function Trip() {
 
           {/* Next Button */}
           <button
-            onClick={() => setStep("agreement")}
+            onClick={() => setView("agreement")}
             className="w-full rounded-2xl bg-gradient-to-r from-red-500 to-red-600 py-4 font-nunito text-lg font-bold text-white shadow-[0_18px_30px_rgba(239,68,68,0.25)] transition hover:from-red-600 hover:to-red-700 active:scale-[0.99]"
           >
             Continue to Agreement →
@@ -589,6 +751,24 @@ function ChatIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2H11l-5 4v-4H5a2 2 0 01-2-2V7a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function BellIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function LocationPinIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="11" r="3" stroke="currentColor" strokeWidth="2" />
+      <path d="M12 21c4-4 8-8 8-12a8 8 0 10-16 0c0 4 4 8 8 12z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
     </svg>
   );
 }

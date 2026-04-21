@@ -56,33 +56,36 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Quick Actions */}
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <button className="flex-1 rounded-xl bg-gradient-to-r from-red-500 to-red-600 py-3 text-sm font-bold text-white shadow-md">
-                Find Travel Companion
-              </button>
-              <button className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600">
-                How it work?
-              </button>
+          {/* Premium Features */}
+          <section className="rounded-[2rem] border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-lg">⭐</span>
+              <h2 className="text-base font-bold text-amber-800">Premium Features</h2>
             </div>
-          </section>
-
-          {/* Filters */}
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">
-                Filters
-              </h2>
-              <button className="text-xs font-semibold text-red-500">Reset</button>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-sm text-amber-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+                Advanced matching filters
+              </div>
+              <div className="flex items-center gap-2 text-sm text-amber-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+                Unlimited chat with matches
+              </div>
+              <div className="flex items-center gap-2 text-sm text-amber-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+                See who liked your profile
+              </div>
+              <div className="flex items-center gap-2 text-sm text-amber-700">
+                <span className="h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0"></span>
+                Priority matching & support
+              </div>
             </div>
-
-            <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-              <FilterChip active>Budget</FilterChip>
-              <FilterChip>Travel style</FilterChip>
-              <FilterChip>Verified only</FilterChip>
-              <FilterChip>Safety</FilterChip>
-            </div>
+            <button 
+              onClick={() => alert("Upgrade to Premium for full access!")}
+              className="mt-4 w-full rounded-xl bg-gradient-to-r from-amber-400 to-orange-400 py-3 text-sm font-bold text-white shadow-md transition hover:from-amber-500 hover:to-orange-500"
+            >
+              Upgrade Now
+            </button>
           </section>
 
           {/* Suggested Matches - แนวนอนเลื่อนได้ */}
@@ -102,6 +105,7 @@ export default function Home() {
                   rating="4.9"
                   redFlag="Rare cancellations"
                   verified
+                  premium
                   accent="from-red-500 to-rose-500"
                 />
               </div>
@@ -219,6 +223,7 @@ function MatchCard({
   rating,
   redFlag,
   verified,
+  premium,
   accent,
 }: {
   name: string;
@@ -228,6 +233,7 @@ function MatchCard({
   rating: string;
   redFlag: string;
   verified: boolean;
+  premium?: boolean;
   accent: string;
 }) {
   return (
@@ -238,8 +244,8 @@ function MatchCard({
             <p className="text-xs uppercase tracking-[0.28em] text-white/80">Compatibility</p>
             <p className="mt-1 text-3xl font-black leading-none">{compatibility}</p>
           </div>
-          <div className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold backdrop-blur">
-            {verified ? "Verified" : "Trust pending"}
+          <div className={`rounded-full px-3 py-1 text-xs font-semibold backdrop-blur ${premium ? "bg-amber-400/30 text-white" : "bg-white/20 text-white"}`}>
+            {premium ? "Premium" : verified ? "Verified" : "Trust pending"}
           </div>
         </div>
       </div>
@@ -260,7 +266,11 @@ function MatchCard({
         </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-2">
-          <BadgePill tone="red">Verified badge</BadgePill>
+          {premium ? (
+            <BadgePill tone="amber">Premium</BadgePill>
+          ) : (
+            <BadgePill tone="red">Verified badge</BadgePill>
+          )}
           {redFlag && <BadgePill tone="rose">{redFlag}</BadgePill>}
         </div>
       </div>
@@ -268,11 +278,12 @@ function MatchCard({
   );
 }
 
-function BadgePill({ tone, children }: { tone: "red" | "rose" | "slate"; children: ReactNode }) {
+function BadgePill({ tone, children }: { tone: "red" | "rose" | "slate" | "amber"; children: ReactNode }) {
   const tones = {
     red: "bg-red-50 text-red-600",
     rose: "bg-rose-50 text-rose-600",
     slate: "bg-slate-50 text-slate-600",
+    amber: "bg-amber-50 text-amber-600",
   } as const;
 
   return <span className={`rounded-full px-3 py-1 text-xs font-semibold ${tones[tone]}`}>{children}</span>;
