@@ -231,9 +231,9 @@ export default function Trip() {
         <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
           <NavItem to="/home" label="Home" icon={<HomeIcon />} />
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
-          <NavItem to="/trip" label="Trips" icon={<BagIcon />} active />
           <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
-          <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
+          <NavItem to="/trips" label="Trips" icon={<BagIcon />} active />
+          <NavItem to="/organizer" label="Organizer" icon={<CrownIcon />} />
         </div>
       </nav>
     </div>
@@ -413,9 +413,9 @@ function AgreementView({
         <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
           <NavItem to="/home" label="Home" icon={<HomeIcon />} />
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
-          <NavItem to="/trip" label="Trips" icon={<BagIcon />} active />
           <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
-          <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
+          <NavItem to="/trips" label="Trips" icon={<BagIcon />} active />
+          <NavItem to="/organizer" label="Organizer" icon={<CrownIcon />} />
         </div>
       </nav>
     </div>
@@ -593,11 +593,10 @@ function ChatIcon() {
   );
 }
 
-function ProfileIcon() {
+function CrownIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M5 16L3 5l5.5 3L12 4l3.5 4L21 5l-2 11H5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
 }

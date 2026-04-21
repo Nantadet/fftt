@@ -17,6 +17,9 @@ import Verification from "./pages/Verification";
 import Reviews from "./pages/Reviews";
 import Profile from "./pages/Profile";
 import SplashScreen from "./pages/SplashScreen";
+import UpcomingTrips from "./pages/UpcomingTrips";
+import TripReview from "./pages/TripReview";
+import OrganizerMode from "./pages/OrganizerMode";
 
 const queryClient = new QueryClient();
 
@@ -33,10 +36,13 @@ const App = () => (
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/matching" element={<Matching />} />
           <Route path="/trip" element={<Trip />} />
+          <Route path="/trips" element={<UpcomingTrips />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/verification" element={<Verification />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/review/:tripId" element={<TripReview />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/organizer" element={<OrganizerMode />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

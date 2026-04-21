@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PremiumPopup from "@/components/PremiumPopup";
 
 interface MatchProfile {
   id: string;
@@ -16,14 +17,16 @@ interface MatchProfile {
   styleMatch: number;
   personalityMatch: number;
   redFlag?: string;
+  tags: string[];
+  premiumFilter?: boolean;
 }
 
 const mockProfiles: MatchProfile[] = [
   {
     id: "1",
-    name: "Alex Chen",
-    age: 29,
-    location: "Chiang Mai, Thailand",
+    name: "Lisa",
+    age: 26,
+    location: "Bangkok, Thailand",
     compatibility: 92,
     trustScore: 94,
     verified: true,
@@ -34,13 +37,15 @@ const mockProfiles: MatchProfile[] = [
     styleMatch: 95,
     personalityMatch: 91,
     redFlag: "Rare cancellations",
+    tags: ["Beach Lover", "Foodie", "Easy-going"],
+    premiumFilter: true,
   },
   {
     id: "2",
-    name: "Maya Lopez",
-    age: 26,
-    location: "Bangkok, Thailand",
-    compatibility: 87,
+    name: "Tom",
+    age: 29,
+    location: "Chiang Mai, Thailand",
+    compatibility: 84,
     trustScore: 91,
     verified: true,
     rating: 4.7,
@@ -49,13 +54,14 @@ const mockProfiles: MatchProfile[] = [
     budgetMatch: 92,
     styleMatch: 84,
     personalityMatch: 88,
+    tags: ["Adventure", "Budget-Friendly"],
   },
   {
     id: "3",
-    name: "James Wilson",
-    age: 32,
+    name: "Kate",
+    age: 25,
     location: "Phuket, Thailand",
-    compatibility: 85,
+    compatibility: 80,
     trustScore: 88,
     verified: true,
     rating: 4.6,
@@ -65,14 +71,14 @@ const mockProfiles: MatchProfile[] = [
     styleMatch: 91,
     personalityMatch: 86,
     redFlag: "Budget mismatch",
+    tags: ["Culture Enthusiast", "Budget-Friendly"],
   },
 ];
 
 export default function Matching() {
   const navigate = useNavigate();
   const [selectedProfile, setSelectedProfile] = useState<MatchProfile | null>(null);
-  const [destinationFilter, setDestinationFilter] = useState("Chiang Mai, Thailand");
-  const [groupSize, setGroupSize] = useState("Small group");
+  const [showPremium, setShowPremium] = useState(false);
 
   if (selectedProfile) {
     return (
@@ -98,7 +104,7 @@ export default function Matching() {
 
           <div className="text-center">
             <p className="font-nunito text-xl font-black tracking-[0.2em] text-red-500">WITH ME</p>
-            <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Find Travel Match</p>
+            <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">Matches</p>
           </div>
 
           <button className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition hover:bg-slate-50">
@@ -107,169 +113,125 @@ export default function Matching() {
         </header>
 
         <main className="mt-4 flex-1 space-y-4 pb-5">
-          {/* Filters */}
-          <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Destination Filter
-            </h2>
-            <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-              <select 
-                value={destinationFilter}
-                onChange={(e) => setDestinationFilter(e.target.value)}
-                className="w-full bg-transparent text-sm font-medium text-slate-700 outline-none"
-              >
-                <option>Chiang Mai, Thailand</option>
-                <option>Bangkok, Thailand</option>
-                <option>Phuket, Thailand</option>
-                <option>Krabi, Thailand</option>
-              </select>
-            </div>
+          {/* Premium Filter Badge */}
+          <button
+            onClick={() => setShowPremium(true)}
+            className="inline-flex items-center gap-2 rounded-full bg-amber-100 border border-amber-200 px-4 py-2 text-sm font-semibold text-amber-700 shadow-sm transition hover:bg-amber-200"
+          >
+            <span>⭐</span>
+            Premium filter
+          </button>
 
-            <h2 className="mt-4 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
-              Group Size Filter
-            </h2>
-            <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-              <select 
-                value={groupSize}
-                onChange={(e) => setGroupSize(e.target.value)}
-                className="w-full bg-transparent text-sm font-medium text-slate-700 outline-none"
-              >
-                <option>Small group (2-3)</option>
-                <option>Medium group (4-6)</option>
-                <option>Large group (7+)</option>
-                <option>1-on-1</option>
-              </select>
-            </div>
-          </section>
+          <p className="text-sm text-slate-500 -mt-2">Find the perfect travel companions.</p>
 
-          {/* Suggested Matches */}
-          <section className="space-y-3">
-            <div className="flex items-center justify-between px-1">
-              <h2 className="text-lg font-bold text-slate-900">Suggested Matches</h2>
-              <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-600">
-                {mockProfiles.length} found
-              </span>
-            </div>
-
+          {/* Matches List */}
+          <section className="space-y-4">
             {mockProfiles.map((profile) => (
               <MatchCard 
                 key={profile.id} 
                 profile={profile} 
                 onViewProfile={() => setSelectedProfile(profile)}
+                onSendRequest={() => navigate("/chat")}
               />
             ))}
           </section>
         </main>
+
+        {/* Switch to Organizer Mode */}
+        <button
+          onClick={() => navigate("/organizer")}
+          className="fixed bottom-24 right-4 z-20 flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-600 shadow-md transition hover:bg-slate-50"
+        >
+          <ShieldSmallIcon />
+          Switch to Organizer Mode
+        </button>
       </div>
+
+      {/* Premium Popup */}
+      <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
 
       {/* Bottom Nav */}
       <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
           <NavItem to="/home" label="Home" icon={<HomeIcon />} />
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} active />
-          <NavItem to="/trip" label="Trips" icon={<BagIcon />} />
           <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
-          <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
+          <NavItem to="/trips" label="Trips" icon={<BagIcon />} />
+          <NavItem to="/organizer" label="Organizer" icon={<CrownIcon />} />
         </div>
       </nav>
     </div>
   );
 }
 
-function MatchCard({ profile, onViewProfile }: { profile: MatchProfile; onViewProfile: () => void }) {
+function MatchCard({ profile, onViewProfile, onSendRequest }: { 
+  profile: MatchProfile; 
+  onViewProfile: () => void;
+  onSendRequest: () => void;
+}) {
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm">
-      {/* Header with compatibility */}
-      <div className="bg-gradient-to-br from-red-500 to-rose-500 p-4 text-white">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <div className="h-14 w-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-2xl">
-              {profile.name.charAt(0)}
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-white/80">Compatibility</p>
-              <p className="text-3xl font-black leading-none">{profile.compatibility}%</p>
-            </div>
-          </div>
-          <div className="rounded-full bg-white/20 px-3 py-1 text-xs font-semibold backdrop-blur">
-            {profile.verified ? "Verified" : "Trust pending"}
-          </div>
-        </div>
-      </div>
-
-      <div className="p-4">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h3 className="text-xl font-black text-slate-900">
-              {profile.name}, {profile.age}
-            </h3>
-            <p className="mt-1 text-sm text-slate-500">{profile.location}</p>
-          </div>
-
-          <div className="text-right">
-            <div className="flex items-center gap-1">
-              <span className="text-amber-400">⭐</span>
-              <span className="font-bold text-slate-900">{profile.rating}</span>
-            </div>
-            <p className="text-xs text-slate-400">({profile.reviewCount} reviews)</p>
-          </div>
+    <article className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="flex items-start gap-3">
+        {/* Avatar */}
+        <div className="h-14 w-14 shrink-0 rounded-xl bg-gradient-to-br from-red-400 to-rose-500 flex items-center justify-center text-lg font-bold text-white">
+          {profile.name.charAt(0)}
         </div>
 
-        {/* Compatibility Breakdown Mini */}
-        <div className="mt-3 space-y-2">
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-500">Budget</span>
-            <div className="flex gap-0.5">
-              {[...Array(8)].map((_, i) => (
-                <span key={i} className={i < 7 ? "text-red-500" : "text-slate-200"}>▰</span>
-              ))}
-            </div>
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base font-black text-slate-900">
+            {profile.name}, {profile.age}
+          </h3>
+          <div className="flex items-center gap-1 text-xs text-slate-500 mt-0.5">
+            <LocationPinIcon />
+            {profile.location}
           </div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-500">Style</span>
-            <div className="flex gap-0.5">
-              {[...Array(9)].map((_, i) => (
-                <span key={i} className={i < 8 ? "text-red-500" : "text-slate-200"}>▰</span>
-              ))}
-            </div>
+
+          {/* Tags */}
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            {profile.tags.map((tag) => (
+              <span key={tag} className="rounded-full bg-red-50 px-2.5 py-0.5 text-[11px] font-medium text-red-600">
+                {tag === "Beach Lover" ? "❤️ " : ""}{tag}
+              </span>
+            ))}
           </div>
-          <div className="flex items-center justify-between text-xs">
-            <span className="text-slate-500">Personality</span>
-            <div className="flex gap-0.5">
-              {[...Array(7)].map((_, i) => (
-                <span key={i} className={i < 6 ? "text-red-500" : "text-slate-200"}>▰</span>
-              ))}
-            </div>
+
+          {/* Actions */}
+          <div className="mt-3 flex gap-2">
+            <button 
+              onClick={onViewProfile}
+              className="flex-1 rounded-lg border border-slate-200 bg-white py-2 text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+            >
+              View Profile
+            </button>
+            <button 
+              onClick={onSendRequest}
+              className="flex-1 rounded-lg bg-red-500 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-red-600"
+            >
+              Send Request
+            </button>
           </div>
         </div>
 
-        {/* Match indicators */}
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <BadgePill tone="red">Budget Match ✓</BadgePill>
-          <BadgePill tone="rose">Travel Pace Match ✓</BadgePill>
-          {profile.redFlag && (
-            <BadgePill tone="slate" warning>{profile.redFlag}</BadgePill>
-          )}
-        </div>
-
-        {/* Action buttons */}
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          <button 
-            onClick={onViewProfile}
-            className="rounded-xl border border-slate-200 bg-white py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-          >
-            View Profile
-          </button>
-          <button className="rounded-xl bg-gradient-to-r from-red-500 to-red-600 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-red-600 hover:to-red-700">
-            Send Request
-          </button>
+        {/* Compatibility Circle */}
+        <div className="shrink-0 flex flex-col items-center">
+          <div className="h-14 w-14 rounded-full border-2 border-red-400 flex flex-col items-center justify-center">
+            <span className="text-sm font-black text-red-500">{profile.compatibility}%</span>
+          </div>
+          <span className="text-[9px] text-slate-400 mt-0.5">Compatible</span>
         </div>
       </div>
     </article>
   );
 }
 
-function ProfileDetail({ profile, onBack, onSendRequest }: { profile: MatchProfile; onBack: () => void; onSendRequest: () => void }) {
+function ProfileDetail({ profile, onBack, onSendRequest }: { 
+  profile: MatchProfile; 
+  onBack: () => void; 
+  onSendRequest: () => void;
+}) {
+  const [showPremium, setShowPremium] = useState(false);
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff5f5_0%,_#ffffff_35%,_#fffdfd_100%)] text-slate-900">
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col px-4 pb-28 pt-4 sm:px-5">
@@ -300,12 +262,20 @@ function ProfileDetail({ profile, onBack, onSendRequest }: { profile: MatchProfi
                 {profile.name.charAt(0)}
               </div>
               <div className="flex-1">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <h1 className="text-2xl font-black text-slate-900">{profile.name}</h1>
                   {profile.verified && (
                     <span className="rounded-full bg-blue-50 px-2 py-0.5 text-xs font-bold text-blue-600">
                       ✓ Verified
                     </span>
+                  )}
+                  {profile.premiumFilter && (
+                    <button 
+                      onClick={() => setShowPremium(true)}
+                      className="rounded-full bg-amber-50 px-2 py-0.5 text-xs font-bold text-amber-600"
+                    >
+                      ⭐ Premium
+                    </button>
                   )}
                 </div>
                 <p className="text-sm text-slate-500">Responsible traveler</p>
@@ -377,7 +347,7 @@ function ProfileDetail({ profile, onBack, onSendRequest }: { profile: MatchProfi
             </button>
             <button 
               onClick={onSendRequest}
-              className="rounded-2xl bg-gradient-to-r from-red-500 to-red-600 py-4 text-base font-bold text-white shadow-[0_18px_30px_rgba(239,68,68,0.25)] transition hover:from-red-600 hover:to-red-700"
+              className="rounded-2xl bg-red-500 py-4 text-base font-bold text-white shadow-[0_18px_30px_rgba(239,68,68,0.25)] transition hover:bg-red-600"
             >
               Send Request
             </button>
@@ -385,14 +355,16 @@ function ProfileDetail({ profile, onBack, onSendRequest }: { profile: MatchProfi
         </main>
       </div>
 
+      <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
+
       {/* Bottom Nav */}
       <nav className="fixed inset-x-0 bottom-0 z-20 border-t border-slate-200 bg-white/95 backdrop-blur">
         <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
           <NavItem to="/home" label="Home" icon={<HomeIcon />} />
           <NavItem to="/matching" label="Matches" icon={<UsersIcon />} active />
-          <NavItem to="/trip" label="Trips" icon={<BagIcon />} />
           <NavItem to="/chat" label="Chat" icon={<ChatIcon />} />
-          <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
+          <NavItem to="/trips" label="Trips" icon={<BagIcon />} />
+          <NavItem to="/organizer" label="Organizer" icon={<CrownIcon />} />
         </div>
       </nav>
     </div>
@@ -423,16 +395,6 @@ function PreferenceRow({ label, value }: { label: string; value: string }) {
       <span className="text-sm font-bold text-slate-800">{value}</span>
     </div>
   );
-}
-
-function BadgePill({ tone, warning, children }: { tone: "red" | "rose" | "slate"; warning?: boolean; children: React.ReactNode }) {
-  const tones = {
-    red: "bg-red-50 text-red-600",
-    rose: "bg-rose-50 text-rose-600",
-    slate: warning ? "bg-amber-50 text-amber-600" : "bg-slate-50 text-slate-600",
-  };
-
-  return <span className={`rounded-full px-3 py-1 text-xs font-semibold ${tones[tone]}`}>{children}</span>;
 }
 
 function NavItem({ to, label, icon, active = false }: { to: string; label: string; icon: React.ReactNode; active?: boolean }) {
@@ -478,9 +440,26 @@ function ShareIcon() {
   );
 }
 
+function LocationPinIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="11" r="3" stroke="currentColor" strokeWidth="2" />
+      <path d="M12 21c4-4 8-8 8-12a8 8 0 10-16 0c0 4 4 8 8 12z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ShieldSmallIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function HomeIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M4 11l8-6 8 6v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
@@ -488,7 +467,7 @@ function HomeIcon() {
 
 function UsersIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="1.8" />
       <path d="M3.5 19a4.5 4.5 0 018.9 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
       <circle cx="17" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.8" />
@@ -499,7 +478,7 @@ function UsersIcon() {
 
 function BagIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M7 8h10l1 11H6L7 8z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
       <path d="M9 8V7a3 3 0 016 0v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
@@ -508,17 +487,16 @@ function BagIcon() {
 
 function ChatIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M5 5h14a2 2 0 012 2v8a2 2 0 01-2 2H11l-5 4v-4H5a2 2 0 01-2-2V7a2 2 0 012-2z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
 }
 
-function ProfileIcon() {
+function CrownIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 16L3 5l5.5 3L12 4l3.5 4L21 5l-2 11H5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
 }

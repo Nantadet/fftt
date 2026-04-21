@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import PremiumPopup from "@/components/PremiumPopup";
 
 interface Message {
   id: string;
@@ -28,6 +28,7 @@ export default function Chat() {
   const [inputText, setInputText] = useState("");
   const [showSafetyMenu, setShowSafetyMenu] = useState(false);
   const [tripConfirmed, setTripConfirmed] = useState(false);
+  const [tripStatus, setTripStatus] = useState<"planning" | "agreement" | "confirmed" | "completed">("planning");
   const [unlockedInfo, setUnlockedInfo] = useState<UnlockedInfo>({
     name: true,
     photo: false,
@@ -39,6 +40,7 @@ export default function Chat() {
     day2: true,
     day3: false,
   });
+  const [showPremium, setShowPremium] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -62,7 +64,6 @@ export default function Chat() {
     setMessages([...messages, newMessage]);
     setInputText("");
     
-    // Simulate reply
     setTimeout(() => {
       const reply: Message = {
         id: (Date.now() + 1).toString(),
@@ -97,6 +98,24 @@ export default function Chat() {
     setShowSafetyMenu(false);
   };
 
+  const getStatusLabel = () => {
+    switch (tripStatus) {
+      case "planning": return "Planning Trip";
+      case "agreement": return "Agreement Pending";
+      case "confirmed": return "Trip Confirmed";
+      case "completed": return "Trip Completed";
+    }
+  };
+
+  const getStatusColor = () => {
+    switch (tripStatus) {
+      case "planning": return "bg-amber-500";
+      case "agreement": return "bg-orange-500";
+      case "confirmed": return "bg-green-500";
+      case "completed": return "bg-slate-400";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#fff5f5_0%,_#ffffff_35%,_#fffdfd_100%)] text-slate-900">
       <div className="mx-auto flex min-h-screen w-full max-w-md flex-col">
@@ -123,7 +142,6 @@ export default function Chat() {
           </div>
 
           <div className="flex items-center gap-2">
-            {/* Cancel Button */}
             <button 
               onClick={() => navigate("/home")}
               className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-50"
@@ -177,21 +195,33 @@ export default function Chat() {
           </div>
         </header>
 
-        {/* Privacy Status Bar */}
+        {/* Trip Status Bar */}
         <div className="bg-white border-b border-slate-100 px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className={`h-2 w-2 rounded-full ${tripConfirmed ? "bg-green-500" : "bg-amber-500"}`}></span>
+              <span className={`h-2 w-2 rounded-full ${getStatusColor()}`}></span>
               <span className="text-xs font-medium text-slate-600">
-                {tripConfirmed ? "Trip Confirmed" : "Anonymous chat before confirming"}
+                {tripConfirmed ? "Trip Confirmed" : getStatusLabel()}
               </span>
             </div>
-            <button 
-              onClick={() => setTripConfirmed(!tripConfirmed)}
-              className="text-xs font-semibold text-red-500 hover:text-red-600"
-            >
-              {tripConfirmed ? "View Agreement" : "Confirm Trip"}
-            </button>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => {
+                  if (tripStatus === "planning") {
+                    setTripStatus("agreement");
+                    navigate("/trip");
+                  } else if (tripStatus === "agreement") {
+                    setTripStatus("confirmed");
+                    setTripConfirmed(true);
+                  } else if (tripStatus === "confirmed") {
+                    navigate("/trip");
+                  }
+                }}
+                className="text-xs font-semibold text-red-500 hover:text-red-600"
+              >
+                {tripStatus === "planning" ? "Create Trip →" : tripStatus === "agreement" ? "View Agreement" : tripStatus === "confirmed" ? "View Agreement" : "Review Trip"}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -288,6 +318,16 @@ export default function Chat() {
           </button>
         </div>
 
+        {/* Premium chat hint */}
+        <button
+          onClick={() => setShowPremium(true)}
+          className="border-t border-slate-100 bg-amber-50/50 px-4 py-2 text-center w-full"
+        >
+          <p className="text-[11px] text-amber-600 font-medium">
+            ⭐ Unlimited chat for Premium users
+          </p>
+        </button>
+
         {/* Input Area */}
         <div className="border-t border-slate-200 bg-white px-4 py-3">
           <div className="flex items-center gap-2">
@@ -321,24 +361,14 @@ export default function Chat() {
           <div className="mx-auto grid max-w-md grid-cols-5 gap-1 px-3 py-2 text-[11px] text-slate-500">
             <NavItem to="/home" label="Home" icon={<HomeIcon />} />
             <NavItem to="/matching" label="Matches" icon={<UsersIcon />} />
-            <NavItem to="/trip" label="Trips" icon={<BagIcon />} />
             <NavItem to="/chat" label="Chat" icon={<ChatIcon />} active />
-            <NavItem to="/profile" label="Profile" icon={<ProfileIcon />} />
+            <NavItem to="/trips" label="Trips" icon={<BagIcon />} />
+            <NavItem to="/organizer" label="Organizer" icon={<CrownIcon />} />
           </div>
         </nav>
-
-        {/* SOS Button - ลากได้ */}
-        <motion.button
-          drag
-          dragMomentum={false}
-          whileDrag={{ scale: 1.2, cursor: "grabbing" }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleSOS}
-          className="fixed bottom-24 right-4 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-red-600 text-white shadow-[0_8px_30px_rgba(239,68,68,0.5)] cursor-grab hover:bg-red-700"
-        >
-          <span className="text-xs font-bold select-none">SOS</span>
-        </motion.button>
       </div>
+
+      <PremiumPopup isOpen={showPremium} onClose={() => setShowPremium(false)} />
     </div>
   );
 }
@@ -492,11 +522,10 @@ function ChatIcon() {
   );
 }
 
-function ProfileIcon() {
+function CrownIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M5 20a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M5 16L3 5l5.5 3L12 4l3.5 4L21 5l-2 11H5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
     </svg>
   );
 }
