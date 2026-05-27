@@ -14,7 +14,7 @@ export const influencers: Influencer[] = [
   { id: "pfi.1q", username: "pfi.1q", displayName: "pfi.1q", followers: "N/A", profileUrl: "https://www.instagram.com/pfi.1q/", imagePath: "/ig-img/pfi.1q.jpg" },
   { id: "jinnsurq", username: "jinnsurq", displayName: "jinnsurq", followers: "N/A", profileUrl: "https://www.instagram.com/jinnsurq/", imagePath: "/ig-img/jinnsurq.jpg" },
   { id: "yaelllz", username: "yaelllz", displayName: "Yael David", followers: "11.8K", profileUrl: "https://www.instagram.com/yaelllz/", imagePath: "/ig-img/yaelllz.jpg" },
-  { id: "claimii", username: "claimii", displayName: "แคมี่", followers: "13.4K", profileUrl: "https://www.instagram.com/claimii/", imagePath: "/ig-img/claimii.jpg" },
+  { id: "clairnii", username: "clairnii", displayName: "แคร์", followers: "13.4K", profileUrl: "https://www.instagram.com/claimii/", imagePath: "/ig-img/clairnii.png" },
   { id: "_pzzkky", username: "_pzzkky", displayName: "ปุ๊กกี้", followers: "73.7K", profileUrl: "https://www.instagram.com/_pzzkky/", imagePath: "/ig-img/_pzzkky.jpg" },
   { id: "jirajiraruree26", username: "jirajiraruree26", displayName: "จิเรขนิดมิพล.", followers: "1,411", profileUrl: "https://www.instagram.com/jirajiraruree26/", imagePath: "/ig-img/jirajiraruree26.jpg" },
   { id: "_cnpsy", username: "_cnpsy", displayName: "_cnpsy", followers: "4,705", profileUrl: "https://www.instagram.com/_cnpsy/", imagePath: "/ig-img/_cnpsy.jpg" },
@@ -26,7 +26,7 @@ export const influencers: Influencer[] = [
   { id: "rosysnrr", username: "rosysnrr", displayName: "มะลิเลิฟซีซี", followers: "15.3K", profileUrl: "https://www.instagram.com/rosysnrr/", imagePath: "/ig-img/rosysnrr.jpg" },
   { id: "eye0502_", username: "eye0502_", displayName: "อาย", followers: "9,214", profileUrl: "https://www.instagram.com/eye0502_/", imagePath: "/ig-img/eye0502_.jpg" },
   { id: "inluv_btfly", username: "inluv_btfly", displayName: "마리사", followers: "4,461", profileUrl: "https://www.instagram.com/inluv_btfly/", imagePath: "/ig-img/inluv_btfly.jpg" },
-  { id: "touchchounn", username: "touchchounn", displayName: "奕辰", followers: "2,463", profileUrl: "https://www.instagram.com/touchchounn/", imagePath: "/ig-img/touchchounn.jpg" },
+  { id: "touchchounn", username: "touchchounn", displayName: "奕辰", followers: "2,463", profileUrl: "https://www.instagram.com/touchchounn/", imagePath: "/ig-img/touchchouun.jpg" },
   { id: "f4lwer", username: "f4lwer", displayName: "f4lwer", followers: "405", profileUrl: "https://www.instagram.com/f4lwer/", imagePath: "/ig-img/f4lwer.jpg" },
   { id: "urbeply", username: "urbeply", displayName: "urbeply", followers: "440", profileUrl: "https://www.instagram.com/urbeply/", imagePath: "/ig-img/urbeply.jpg" },
 ];
