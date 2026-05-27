@@ -10,10 +10,10 @@ export interface Influencer {
 // อิงตามชื่อไฟล์รูปใน public/ig-img/ เท่านั้น
 // ใครไม่มีรูป = ไม่แสดง
 export const influencers: Influencer[] = [
-  { id: "kimeun_0209", username: "kimeun_0209", displayName: "kimeun_0209", followers: "N/A", profileUrl: "https://www.instagram.com/kimeun_0209/", imagePath: "/ig-img/kimeun_0209.jpg" },
-  { id: "coachkool", username: "coachkool", displayName: "coachkool", followers: "N/A", profileUrl: "https://www.instagram.com/coachkool/", imagePath: "/ig-img/coachkool.jpg" },
-  { id: "pfi.1q", username: "pfi.1q", displayName: "pfi.1q", followers: "N/A", profileUrl: "https://www.instagram.com/pfi.1q/", imagePath: "/ig-img/pfi.1q.jpg" },
-  { id: "jinnsurq", username: "jinnsurq", displayName: "jinnsurq", followers: "N/A", profileUrl: "https://www.instagram.com/jinnsurq/", imagePath: "/ig-img/jinnsurq.jpg" },
+  { id: "kimeun_0209", username: "kimeun_0209", displayName: "kimeun_0209", followers: "1.4k", profileUrl: "https://www.instagram.com/kimeun_0209/", imagePath: "/ig-img/kimeun_0209.jpg" },
+  { id: "coachkool", username: "coachkool", displayName: "coachkool", followers: "1.26k", profileUrl: "https://www.instagram.com/coachkool/", imagePath: "/ig-img/coachkool.jpg" },
+  { id: "pfi.1q", username: "pfi.1q", displayName: "pfi.1q", followers: "1.6k", profileUrl: "https://www.instagram.com/pfi.1q/", imagePath: "/ig-img/pfi.1q.jpg" },
+  { id: "jinnsurq", username: "jinnsurq", displayName: "jinnsurq", followers: "1.49k", profileUrl: "https://www.instagram.com/jinnsurq/", imagePath: "/ig-img/jinnsurq.jpg" },
   { id: "yaelllz", username: "yaelllz", displayName: "Yael David", followers: "11.8K", profileUrl: "https://www.instagram.com/yaelllz/", imagePath: "/ig-img/yaelllz.jpg" },
   { id: "clairnii", username: "clairnii", displayName: "แคมี่", followers: "13.4K", profileUrl: "https://www.instagram.com/clairnii/", imagePath: "/ig-img/clairnii.png" },
   { id: "_cnpsy", username: "_cnpsy", displayName: "_cnpsy", followers: "4,705", profileUrl: "https://www.instagram.com/_cnpsy/", imagePath: "/ig-img/_cnpsy.jpg" },
