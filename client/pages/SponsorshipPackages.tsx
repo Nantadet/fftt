@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import {
   Banknote,
   Gift,
@@ -26,6 +27,7 @@ import {
   Globe,
   MonitorPlay,
   Smartphone,
+  Users,
 } from "lucide-react";
 import {
   cashSponsorship,
@@ -162,7 +164,21 @@ function FloatingLogo() {
   );
 }
 
+function InfluencerButton() {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={() => navigate("/influencers")}
+      className="mt-3 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-2 text-sm font-bold text-white shadow-md transition-transform hover:scale-105 hover:shadow-lg"
+    >
+      <Users className="h-4 w-4" />
+      Influencer List
+    </button>
+  );
+}
+
 function BenefitContent({ group }: { group: BenefitGroup }) {
+  const isInfluencer = group.title.toLowerCase().includes("influencer");
   return (
     <div className="space-y-3 py-1">
       {group.items.map((item, idx) => (
@@ -188,6 +204,7 @@ function BenefitContent({ group }: { group: BenefitGroup }) {
               ))}
             </ul>
           )}
+          {isInfluencer && idx === group.items.length - 1 && <InfluencerButton />}
         </div>
       ))}
     </div>
