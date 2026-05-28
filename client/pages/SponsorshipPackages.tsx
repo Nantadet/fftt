@@ -5,7 +5,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { useNavigate } from "react-router-dom";
 import {
   Banknote,
   Gift,
@@ -27,8 +26,13 @@ import {
   Globe,
   MonitorPlay,
   Smartphone,
-  Users,
+  Info,
 } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   cashSponsorship,
   prizeSponsorship,
@@ -152,6 +156,61 @@ function PercentBadge({ text }: { text: string }) {
   );
 }
 
+function ContactPopover() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-colors"
+          title="Contact Channels"
+        >
+          <Info className="h-5 w-5" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-0" align="start" sideOffset={8}>
+        <div className="px-4 py-3 border-b">
+          <p className="text-sm font-bold text-foreground">Contact Channels</p>
+          <p className="text-xs text-muted-foreground">How to Live and Learn on Campus 2026</p>
+        </div>
+        <div className="p-2 space-y-1">
+          <a
+            href="https://www.facebook.com/mfuactivities"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-muted transition-colors group"
+            title="MFU Activities"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1877F2] text-white flex-shrink-0">
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">Facebook</p>
+              <p className="text-xs text-muted-foreground truncate">@mfuactivities</p>
+            </div>
+          </a>
+          <a
+            href="https://www.instagram.com/mfu_activities/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-muted transition-colors group"
+            title="MFU Activities"
+          >
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 text-white flex-shrink-0">
+              <Instagram className="h-4 w-4" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold">Instagram</p>
+              <p className="text-xs text-muted-foreground truncate">@mfu_activities</p>
+            </div>
+          </a>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
 function FloatingLogo() {
   return (
     <div className="absolute top-3 right-3 z-50">
@@ -164,21 +223,7 @@ function FloatingLogo() {
   );
 }
 
-function InfluencerButton() {
-  const navigate = useNavigate();
-  return (
-    <button
-      onClick={() => navigate("/influencers")}
-      className="mt-3 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-2 text-sm font-bold text-white shadow-md transition-transform hover:scale-105 hover:shadow-lg"
-    >
-      <Users className="h-4 w-4" />
-      Influencer List
-    </button>
-  );
-}
-
 function BenefitContent({ group }: { group: BenefitGroup }) {
-  const isInfluencer = group.title.toLowerCase().includes("influencer");
   return (
     <div className="space-y-3 py-1">
       {group.items.map((item, idx) => (
@@ -204,7 +249,6 @@ function BenefitContent({ group }: { group: BenefitGroup }) {
               ))}
             </ul>
           )}
-          {isInfluencer && idx === group.items.length - 1 && <InfluencerButton />}
         </div>
       ))}
     </div>
@@ -362,6 +406,9 @@ export default function SponsorshipPackages() {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
       {/* Hero with bg.jpg background image */}
       <div className="relative overflow-hidden px-6 pb-10 pt-10 text-white">
+        <div className="absolute top-3 left-3 z-50">
+          <ContactPopover />
+        </div>
         <FloatingLogo />
         {/* Background image */}
         <div
