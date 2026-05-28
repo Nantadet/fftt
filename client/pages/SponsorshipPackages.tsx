@@ -39,6 +39,7 @@ import {
   evoucherOptions,
 } from "@/data/sponsorshipData";
 import type { Package, BenefitGroup, EvoucherOption, Category } from "@/data/sponsorshipData";
+import { useRef } from "react";
 
 function getTierIcon(tier: string, className = "h-5 w-5") {
   switch (tier) {
@@ -161,7 +162,7 @@ function ContactPopover() {
     <Popover>
       <PopoverTrigger asChild>
         <button
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-colors"
+          className="flex h-11 w-11 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-sm border border-white/20 hover:bg-black/80 transition-colors shadow-lg"
           title="Contact Channels"
         >
           <Info className="h-5 w-5" />
@@ -257,9 +258,11 @@ function BenefitContent({ group }: { group: BenefitGroup }) {
 
 function PackageAccordion({ pkg }: { pkg: Package }) {
   const isPlatinum = pkg.tier === "platinum";
+  const itemRef = useRef<HTMLDivElement>(null);
 
   return (
     <AccordionItem
+      ref={itemRef}
       value={pkg.id}
       className={`relative rounded-xl border shadow-sm overflow-hidden transition-all duration-300 ${
         isPlatinum
@@ -294,7 +297,16 @@ function PackageAccordion({ pkg }: { pkg: Package }) {
         </div>
       </AccordionTrigger>
       <AccordionContent className="relative z-10 px-4 pb-4">
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full" onValueChange={(val) => {
+          if (val) {
+            setTimeout(() => {
+              const el = document.querySelector(`[data-value="${val}"]`);
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 350);
+          }
+        }}>
           {pkg.benefits.map((group, gi) => (
             <AccordionItem
               key={gi}
@@ -401,14 +413,26 @@ function CategoryNotes({ category }: { category: Category }) {
   );
 }
 
+function scrollToOpenItem(value: string) {
+  if (!value) return;
+  setTimeout(() => {
+    const el = document.querySelector(`[data-value="${value}"]`);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 350);
+}
+
 export default function SponsorshipPackages() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+      {/* Fixed Contact Button */}
+      <div className="fixed top-4 left-4 z-50">
+        <ContactPopover />
+      </div>
+
       {/* Hero with bg.jpg background image */}
       <div className="relative overflow-hidden px-6 pb-10 pt-10 text-white">
-        <div className="absolute top-3 left-3 z-50">
-          <ContactPopover />
-        </div>
         <FloatingLogo />
         {/* Background image */}
         <div
@@ -449,7 +473,7 @@ export default function SponsorshipPackages() {
               </p>
             </div>
           </div>
-          <Accordion type="single" collapsible className="w-full space-y-3">
+          <Accordion type="single" collapsible className="w-full space-y-3" onValueChange={scrollToOpenItem}>
             {cashSponsorship.packages.map((pkg) => (
               <PackageAccordion key={pkg.id} pkg={pkg} />
             ))}
@@ -470,7 +494,7 @@ export default function SponsorshipPackages() {
               </p>
             </div>
           </div>
-          <Accordion type="single" collapsible className="w-full space-y-3">
+          <Accordion type="single" collapsible className="w-full space-y-3" onValueChange={scrollToOpenItem}>
             {prizeSponsorship.packages.map((pkg) => (
               <PackageAccordion key={pkg.id} pkg={pkg} />
             ))}
@@ -491,7 +515,7 @@ export default function SponsorshipPackages() {
               </p>
             </div>
           </div>
-          <Accordion type="single" collapsible className="w-full space-y-3">
+          <Accordion type="single" collapsible className="w-full space-y-3" onValueChange={scrollToOpenItem}>
             {evoucherOptions.map((opt) => (
               <EvoucherAccordion key={opt.id} opt={opt} />
             ))}
