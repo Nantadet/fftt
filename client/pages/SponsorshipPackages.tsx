@@ -258,6 +258,10 @@ function BenefitContent({ group }: { group: BenefitGroup }) {
 
 function PackageAccordion({ pkg }: { pkg: Package }) {
   const isPlatinum = pkg.tier === "platinum";
+  const packageTag = isPlatinum ? "Recommend" : pkg.tier === "gold" ? "Best Seller" : null;
+  const packageTagColor = isPlatinum
+    ? "bg-gradient-to-r from-amber-500 to-orange-500"
+    : "bg-gradient-to-r from-red-500 to-rose-600";
   const itemRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -270,10 +274,10 @@ function PackageAccordion({ pkg }: { pkg: Package }) {
           : "bg-white hover:shadow-md hover:-translate-y-0.5"
       }`}
     >
-      {isPlatinum && (
-        <div className="absolute top-0 right-0 z-10 flex items-center gap-1 rounded-bl-xl rounded-tr-lg bg-gradient-to-r from-amber-500 to-orange-500 px-2.5 py-1 text-[10px] font-extrabold text-white uppercase tracking-wide shadow-md">
+      {packageTag && (
+        <div className={`absolute top-0 right-0 z-10 flex items-center gap-1 rounded-bl-xl rounded-tr-lg px-2.5 py-1 text-[10px] font-extrabold text-white uppercase tracking-wide shadow-md ${packageTagColor}`}>
           <ThumbsUp className="h-3.5 w-3.5" />
-          Recommend
+          {packageTag}
         </div>
       )}
       <AccordionTrigger className={`relative z-10 px-4 py-4 hover:no-underline transition-colors ${

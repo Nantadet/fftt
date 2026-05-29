@@ -174,7 +174,14 @@ export default function PackageDetail() {
                         className="flex items-start gap-2 text-sm text-amber-900/80"
                       >
                         <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-500" />
-                        <span>{note}</span>
+                        <span>
+                          {note.appliesTo && (
+                            <Badge className="mb-1.5 bg-amber-100 text-amber-800 border-amber-200 text-xs font-semibold">
+                              {note.appliesTo}
+                            </Badge>
+                          )}
+                          <span className="block">{note.text}</span>
+                        </span>
                       </li>
                     ))}
                   </ul>
