@@ -27,6 +27,7 @@ import {
   MonitorPlay,
   Smartphone,
   Info,
+  ExternalLink,
 } from "lucide-react";
 import {
   Popover,
@@ -147,6 +148,140 @@ function MediaBanner({ text }: { text: string }) {
   );
 }
 
+type MediaExample = {
+  label: string;
+  meta: string;
+  href: string;
+  platform: string;
+  thumbnail?: string;
+  gradient: string;
+  icon: React.ReactNode;
+};
+
+function getMediaExamples(text: string, description = ""): MediaExample[] {
+  const combinedText = `${text} ${description}`;
+  const lower = combinedText.toLowerCase();
+
+  if (lower.includes("photo set")) {
+    const photoSetExamples = [
+      {
+        label: "Photo Set Example 1",
+        kind: "4 รูป",
+        meta: "Instagram post",
+        href: "https://www.instagram.com/p/DL9JVVEvY0g/?igsh=MWVoejRjYXZsb2JxNg==",
+        platform: "Instagram",
+        thumbnail: "/img_example/S__62070807_0.jpg",
+        gradient: "from-blue-600 to-sky-500",
+        icon: <Camera className="h-3.5 w-3.5" />,
+      },
+      {
+        label: "Photo Set Example 2",
+        kind: "6 รูป",
+        meta: "Instagram post",
+        href: "https://www.instagram.com/p/DMAVlM_Pjtx/?igsh=MXZneG5lbjRqM3Rreg==",
+        platform: "Instagram",
+        thumbnail: "/img_example/S__62070812_0.jpg",
+        gradient: "from-blue-600 to-sky-500",
+        icon: <Camera className="h-3.5 w-3.5" />,
+      },
+    ];
+
+    if (combinedText.includes("4 รูป")) {
+      return photoSetExamples.filter((example) => example.kind === "4 รูป");
+    }
+
+    if (combinedText.includes("6 รูป")) {
+      return photoSetExamples.filter((example) => example.kind === "6 รูป");
+    }
+
+    return photoSetExamples;
+  }
+
+  if (lower.includes("short ads")) {
+    return [
+      {
+        label: "Short Ads Example",
+        meta: "Instagram reel",
+        href: "https://www.instagram.com/reel/C-FYzRMPjwG/?igsh=MTRhdXY2NWFnczVoaw==",
+        platform: "Short Ads",
+        gradient: "from-red-600 via-red-500 to-rose-500",
+        icon: <Clapperboard className="h-3.5 w-3.5" />,
+      },
+    ];
+  }
+
+  if (lower.includes("reels")) {
+    return [
+      {
+        label: "Reels 40-60s Example",
+        meta: "Instagram reel",
+        href: "https://www.instagram.com/reel/C9yrX2eP0k8/?igsh=MTdhZzR4bGp5YTVqZg==",
+        platform: "Reels",
+        gradient: "from-fuchsia-600 via-rose-500 to-orange-400",
+        icon: <Instagram className="h-3.5 w-3.5" />,
+      },
+    ];
+  }
+
+  if (lower.includes("tiktok")) {
+    return [
+      {
+        label: "TikTok Content Example",
+        meta: "1 นาที 30 วินาที",
+        href: "https://vt.tiktok.com/ZSxpbaQoP/",
+        platform: "TikTok",
+        gradient: "from-cyan-400 via-slate-900 to-rose-500",
+        icon: <Music className="h-3.5 w-3.5" />,
+      },
+    ];
+  }
+
+  return [];
+}
+
+function MediaExampleLinks({ text, description }: { text: string; description?: string }) {
+  const examples = getMediaExamples(text, description);
+  if (examples.length === 0) return null;
+
+  return (
+    <div className={`mt-3 grid gap-2 ${examples.length > 1 ? "sm:grid-cols-2" : ""}`}>
+      {examples.map((example) => (
+        <a
+          key={example.href}
+          href={example.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative min-h-[82px] overflow-hidden rounded-xl border border-white/70 bg-slate-900 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-red-300"
+        >
+          {example.thumbnail ? (
+            <img
+              src={example.thumbnail}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className={`absolute inset-0 bg-gradient-to-r ${example.gradient}`} />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10" />
+          <div className="relative flex min-h-[82px] items-end justify-between gap-3 p-3">
+            <div className="min-w-0">
+              <div className="mb-1 inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white/90 backdrop-blur-sm">
+                {example.icon}
+                {example.platform}
+              </div>
+              <p className="truncate text-sm font-extrabold">{example.label}</p>
+              <p className="text-[11px] font-medium text-white/75">{example.meta}</p>
+            </div>
+            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white text-slate-900 shadow-sm transition group-hover:scale-105">
+              <ExternalLink className="h-4 w-4" />
+            </span>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function PercentBadge({ text }: { text: string }) {
   const percent = extractPercent(text);
   if (!percent) return null;
@@ -250,6 +385,7 @@ function BenefitContent({ group }: { group: BenefitGroup }) {
               ))}
             </ul>
           )}
+          <MediaExampleLinks text={item.title} description={item.description} />
         </div>
       ))}
     </div>
