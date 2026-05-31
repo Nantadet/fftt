@@ -50,7 +50,7 @@ export const cashSponsorship: Category = {
       name: "Package Bronze",
       tier: "bronze",
       amount: "เงินสนับสนุนตั้งแต่ 2,000 บาท ขึ้นไป",
-      color: "#cd7f32",
+      color: "#b87333",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
@@ -79,7 +79,7 @@ export const cashSponsorship: Category = {
       name: "Package Silver",
       tier: "silver",
       amount: "เงินสนับสนุนตั้งแต่ 7,000 บาท ขึ้นไป",
-      color: "#a0a0a0",
+      color: "#c0c7d1",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
@@ -123,7 +123,7 @@ export const cashSponsorship: Category = {
       name: "Package Gold",
       tier: "gold",
       amount: "เงินสนับสนุนตั้งแต่ 15,000 บาท ขึ้นไป",
-      color: "#d4af37",
+      color: "#f6c453",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
@@ -193,7 +193,7 @@ export const cashSponsorship: Category = {
       name: "Package Platinum",
       tier: "platinum",
       amount: "เงินสนับสนุนตั้งแต่ 45,000 บาท ขึ้นไป",
-      color: "#4a7c9b",
+      color: "#0f2f5a",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
@@ -344,7 +344,7 @@ export const prizeSponsorship: Category = {
       name: "Package Silver",
       tier: "silver",
       amount: "ของรางวัลสนับสนุนมูลค่าตั้งแต่ 5,000 บาท ขึ้นไป",
-      color: "#a0a0a0",
+      color: "#c0c7d1",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
@@ -388,7 +388,7 @@ export const prizeSponsorship: Category = {
       name: "Package Gold",
       tier: "gold",
       amount: "ของรางวัลสนับสนุนมูลค่าตั้งแต่ 30,000 บาท ขึ้นไป",
-      color: "#d4af37",
+      color: "#f6c453",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
@@ -451,7 +451,7 @@ export const prizeSponsorship: Category = {
       name: "Package Platinum",
       tier: "platinum",
       amount: "ของรางวัลสนับสนุนมูลค่าตั้งแต่ 50,000 บาท ขึ้นไป",
-      color: "#4a7c9b",
+      color: "#0f2f5a",
       benefits: [
         {
           title: "1. จดหมายแสดงความขอบคุณผู้สนับสนุน",
