@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
@@ -31,6 +32,15 @@ const objectives = [
 ];
 
 const heroImages = [
+  "/img_example/img_Moment/S__62308417.jpg",
+  "/img_example/img_Moment/S__62308412_0.jpg",
+  "/img_example/img_Moment/S__62308416_0.jpg",
+  "/img_example/img_Moment/S__62308415_0.jpg",
+  "/img_example/img_Moment/S__62308410_0.jpg",
+  "/img_example/img_Moment/S__62308413_0.jpg",
+  "/img_example/img_Moment/S__62308414_0.jpg",
+  "/img_example/img_Moment/S__62308411_0.jpg",
+  "/img_example/img_Moment/S__62308409_0.jpg",
   "/img_example/img_Moment/S__62185482_0.jpg",
   "/img_example/img_Moment/S__62185483_0.jpg",
   "/img_example/img_Moment/S__62185484_0.jpg",
@@ -52,6 +62,16 @@ const featureHighlights = [
 ];
 
 export default function SponsorHome() {
+  const [activeHero, setActiveHero] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveHero((current) => (current + 1) % heroImages.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <SponsorPageShell>
       <div className="grid gap-7">
@@ -63,8 +83,11 @@ export default function SponsorHome() {
                   key={src}
                   src={src}
                   alt=""
-                  className="hero-slide absolute inset-0 h-full w-full object-cover"
-                  style={{ animationDelay: `${index * 5}s` }}
+                  className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${
+                    activeHero === index
+                      ? "scale-100 opacity-100"
+                      : "scale-105 opacity-0"
+                  }`}
                 />
               ))}
             </div>

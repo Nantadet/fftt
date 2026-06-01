@@ -80,17 +80,11 @@
   }
 
   .moments-marquee {
-    animation: moments-marquee 34s linear infinite;
+    animation: moments-marquee 70s linear infinite;
   }
 
   .moments-marquee:hover {
     animation-play-state: paused;
-  }
-
-  .hero-slide {
-    animation: hero-slide 25s ease-in-out infinite;
-    opacity: 0;
-    transform-origin: center;
   }
 
   .lanna-shell {
@@ -260,27 +254,5 @@
 
   to {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes hero-slide {
-  0% {
-    opacity: 0;
-    transform: scale(1.04) translate3d(-1.5%, -1%, 0);
-  }
-
-  4% {
-    opacity: 1;
-  }
-
-  20% {
-    opacity: 1;
-    transform: scale(1.1) translate3d(1.5%, 1%, 0);
-  }
-
-  24%,
-  100% {
-    opacity: 0;
-    transform: scale(1.1) translate3d(1.5%, 1%, 0);
   }
 }

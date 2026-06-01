@@ -507,10 +507,6 @@ function PackageAccordion({ pkg }: { pkg: Package }) {
               {pkg.name}
             </p>
             <p className="truncate text-sm font-medium text-amber-100/80">{pkg.amount}</p>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              <span className="ae-benefit-chip">Metallic Tier</span>
-              <span className="ae-benefit-chip">{pkg.tier}</span>
-            </div>
           </div>
         </div>
       </AccordionTrigger>
