@@ -88,7 +88,7 @@ export function SponsorSidebar({ theme = "lanna" }: { theme?: SponsorTheme }) {
       className={cn(
         "overflow-hidden rounded-2xl border shadow-sm lg:sticky lg:top-6",
         isLanna
-          ? "lanna-card border-amber-300/20 bg-stone-950/80 shadow-[0_22px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+          ? "lanna-card border-amber-400/25 dark:border-amber-300/20 bg-white/95 dark:bg-stone-950/80 shadow-[0_22px_60px_rgba(180,120,9,0.10)] dark:shadow-[0_22px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl"
           : "bg-white",
       )}
     >
@@ -96,14 +96,14 @@ export function SponsorSidebar({ theme = "lanna" }: { theme?: SponsorTheme }) {
         className={cn(
           "hidden border-b px-4 py-4 lg:block",
           isLanna
-            ? "border-amber-300/20 bg-[linear-gradient(135deg,rgba(251,191,36,0.14),rgba(41,28,16,0.88)_46%,rgba(12,10,9,0.96))]"
+            ? "border-amber-400/20 dark:border-amber-300/20 lanna-sidebar-header"
             : "bg-gradient-to-br from-white to-amber-50/70",
         )}
       >
         <div className="flex items-center gap-3">
           <LogoMark theme={theme} />
           <div className="min-w-0">
-            <p className={cn("text-xl font-bold", isLanna ? "font-lanna text-amber-50" : "font-serif text-slate-950")}>HLLC 2026</p>
+            <p className={cn("text-xl font-bold", isLanna ? "font-lanna text-stone-800 dark:text-amber-50" : "font-serif text-slate-950")}>HLLC 2026</p>
           </div>
         </div>
       </div>
@@ -118,11 +118,11 @@ export function SponsorSidebar({ theme = "lanna" }: { theme?: SponsorTheme }) {
                 cn(
                   "flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-bold transition",
                   isLanna
-                    ? "relative text-amber-50/80 hover:bg-amber-300/10 hover:text-amber-50"
+                    ? "relative text-stone-600 dark:text-amber-50/80 hover:bg-amber-200/25 dark:hover:bg-amber-300/10 hover:text-stone-800 dark:hover:text-amber-50"
                     : "text-slate-700 hover:bg-slate-100",
                   isActive &&
                     (isLanna
-                      ? "bg-gradient-to-r from-amber-400/25 to-yellow-100/10 text-amber-50 shadow-[0_10px_24px_rgba(0,0,0,0.18)] ring-1 ring-amber-300/30"
+                      ? "bg-gradient-to-r from-amber-400/25 to-yellow-100/10 text-stone-800 dark:text-amber-50 shadow-[0_10px_24px_rgba(180,120,9,0.12)] dark:shadow-[0_10px_24px_rgba(0,0,0,0.18)] ring-1 ring-amber-400/30 dark:ring-amber-300/30"
                       : "bg-amber-100 text-amber-950 shadow-sm hover:bg-amber-100"),
                 )
               }
@@ -149,21 +149,21 @@ export function SponsorPageShell({
   return (
     <div
       className={cn(
-        "min-h-screen text-slate-950",
+        "min-h-screen",
         isLanna
-          ? "lanna-shell bg-[#0b0908] bg-[linear-gradient(135deg,#0b0908_0%,#24160e_48%,#080706_100%)] text-amber-50"
-          : "bg-[linear-gradient(180deg,#f8fafc_0%,#f1f5f9_100%)]",
+          ? "lanna-shell text-stone-800 dark:text-amber-50"
+          : "bg-[linear-gradient(180deg,#f8fafc_0%,#f1f5f9_100%)] text-slate-950",
       )}
     >
       <header
         className={cn(
           "border-b backdrop-blur lg:hidden",
-          isLanna ? "border-amber-300/20 bg-stone-950/90 shadow-sm" : "bg-white/90",
+          isLanna ? "border-amber-400/20 dark:border-amber-300/20 bg-white/90 dark:bg-stone-950/90 shadow-sm" : "bg-white/90",
         )}
       >
         <div className="flex items-center gap-3 px-4 py-3">
           <LogoMark compact theme={theme} />
-          <p className={cn("text-xl font-bold", isLanna ? "font-lanna text-amber-50" : "font-serif")}>HLLC 2026</p>
+          <p className={cn("text-xl font-bold", isLanna ? "font-lanna text-stone-800 dark:text-amber-50" : "font-serif")}>HLLC 2026</p>
         </div>
       </header>
       <div className="mx-auto grid max-w-[1440px] items-start gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[300px_minmax(0,1fr)] lg:px-8">
