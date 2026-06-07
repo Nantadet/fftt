@@ -43,6 +43,67 @@
     --withme-surface: 0 0% 98%;
     --withme-ink: 220 18% 18%;
     --withme-muted: 220 9% 50%;
+
+    /* Lanna theme – light mode */
+    --lanna-panel-bg: linear-gradient(145deg, rgba(255,252,245,0.98), rgba(250,245,230,0.99));
+    --lanna-panel-border: rgba(180,120,9,0.20);
+    --lanna-panel-shadow: 0 16px 38px rgba(120,83,15,0.10), inset 0 1px 0 rgba(255,255,255,0.8);
+    --lanna-text: #3d2b08;
+    --lanna-text-muted: rgba(61,43,8,0.62);
+    --lanna-accent-text: #7c4a10;
+    --lanna-accent-bg: rgba(180,120,9,0.08);
+    --lanna-accent-border: rgba(180,120,9,0.22);
+    --lanna-sub-bg: rgba(245,235,215,0.65);
+    --lanna-glass-bg: rgba(250,245,230,0.90);
+  }
+
+  .dark {
+    --background: 226 31% 10%;
+    --foreground: 215 22% 96%;
+
+    --card: 226 31% 12%;
+    --card-foreground: 215 22% 96%;
+
+    --popover: 226 31% 18%;
+    --popover-foreground: 215 22% 96%;
+
+    --primary: 205 86% 57%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 214 16% 24%;
+    --secondary-foreground: 215 22% 88%;
+
+    --muted: 214 16% 24%;
+    --muted-foreground: 215 22% 76%;
+
+    --accent: 36 100% 79%;
+    --accent-foreground: 214 17% 16%;
+
+    --destructive: 348 75% 65%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 21% 30%;
+    --input: 220 21% 20%;
+    --ring: 205 86% 57%;
+
+    --withme-red: 0 80% 58%;
+    --withme-red-soft: 30 100% 16%;
+    --withme-red-deep: 0 70% 45%;
+    --withme-surface: 214 20% 14%;
+    --withme-ink: 215 22% 96%;
+    --withme-muted: 216 17% 70%;
+
+    /* Lanna theme – dark mode */
+    --lanna-panel-bg: linear-gradient(145deg, rgba(26,19,14,0.96), rgba(12,10,9,0.99));
+    --lanna-panel-border: rgba(251,191,36,0.14);
+    --lanna-panel-shadow: 0 16px 38px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.045);
+    --lanna-text: rgb(254,243,199);
+    --lanna-text-muted: rgba(254,243,199,0.70);
+    --lanna-accent-text: rgb(253,230,138);
+    --lanna-accent-bg: rgba(251,191,36,0.09);
+    --lanna-accent-border: rgba(251,191,36,0.16);
+    --lanna-sub-bg: rgba(23,18,13,0.80);
+    --lanna-glass-bg: rgba(18,14,10,0.72);
   }
 
   * {
@@ -91,6 +152,11 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
+    background: linear-gradient(135deg, #fdf8f0 0%, #f7eed8 48%, #fdf5ea 100%);
+  }
+
+  .dark .lanna-shell {
+    background: linear-gradient(135deg, #0b0908 0%, #24160e 48%, #080706 100%);
   }
 
   .lanna-shell::before {
@@ -131,11 +197,10 @@
   .ae-panel {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(251, 191, 36, 0.14);
-    background:
-      linear-gradient(145deg, rgba(26, 19, 14, 0.96), rgba(12, 10, 9, 0.99));
-    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.045);
-    color: rgb(254, 243, 199);
+    border: 1px solid var(--lanna-panel-border);
+    background: var(--lanna-panel-bg);
+    box-shadow: var(--lanna-panel-shadow);
+    color: var(--lanna-text);
   }
 
   .ae-panel::before {
@@ -143,7 +208,7 @@
     position: absolute;
     inset: 0 0 auto;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.38), transparent);
+    background: linear-gradient(90deg, transparent, var(--lanna-accent-border), transparent);
   }
 
   .ae-panel::after {
@@ -190,10 +255,11 @@
   }
 
   .ae-glass {
-    border: 1px solid rgba(251, 191, 36, 0.14);
-    background: rgba(18, 14, 10, 0.72);
+    border: 1px solid var(--lanna-panel-border);
+    background: var(--lanna-glass-bg);
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.055);
     backdrop-filter: blur(14px);
+    color: var(--lanna-text);
   }
 
   .ae-benefit-chip {
@@ -201,10 +267,10 @@
     align-items: center;
     gap: 0.35rem;
     border-radius: 999px;
-    border: 1px solid rgba(251, 191, 36, 0.16);
-    background: rgba(251, 191, 36, 0.09);
+    border: 1px solid var(--lanna-accent-border);
+    background: var(--lanna-accent-bg);
     padding: 0.35rem 0.65rem;
-    color: rgb(254, 243, 199);
+    color: var(--lanna-accent-text);
     font-size: 0.7rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -245,8 +311,42 @@
     top: 4.7rem;
     bottom: 1.2rem;
     width: 1px;
-    background: linear-gradient(180deg, rgba(180, 83, 9, 0.36), rgba(180, 83, 9, 0.04));
+    background: linear-gradient(180deg, var(--lanna-accent-border), rgba(180, 83, 9, 0.04));
   }
+
+  /* Sidebar header – responsive bg */
+  .lanna-sidebar-header {
+    background: linear-gradient(135deg, rgba(251,191,36,0.10), rgba(250,245,225,0.97) 46%, rgba(255,252,245,1));
+  }
+  .dark .lanna-sidebar-header {
+    background: linear-gradient(135deg, rgba(251,191,36,0.14), rgba(41,28,16,0.88) 46%, rgba(12,10,9,0.96));
+  }
+
+  /* Packages page outer shell – responsive bg */
+  .lanna-pkg-shell {
+    background: linear-gradient(180deg, #fdf8f0 0%, #f5e8cc 48%, #fdf4e3 100%);
+    color: var(--lanna-text);
+  }
+  .dark .lanna-pkg-shell {
+    background: linear-gradient(180deg, #080706 0%, #1c120c 48%, #090807 100%);
+  }
+
+  /* Tier package card backgrounds */
+  .tier-card-bronze { background: linear-gradient(145deg, rgba(248,235,215,0.96), rgba(255,250,242,0.98)); }
+  .dark .tier-card-bronze { background: linear-gradient(145deg, rgba(65,35,20,0.94), rgba(18,12,10,0.98)); }
+
+  .tier-card-silver { background: linear-gradient(145deg, rgba(240,242,246,0.96), rgba(250,252,255,0.98)); }
+  .dark .tier-card-silver { background: linear-gradient(145deg, rgba(47,53,61,0.94), rgba(13,15,18,0.98)); }
+
+  .tier-card-gold { background: linear-gradient(145deg, rgba(255,248,220,0.96), rgba(255,252,235,0.98)); }
+  .dark .tier-card-gold { background: linear-gradient(145deg, rgba(86,54,13,0.96), rgba(21,14,7,0.98)); }
+
+  .tier-card-platinum { background: linear-gradient(145deg, rgba(230,240,255,0.96), rgba(255,252,235,0.98)); }
+  .dark .tier-card-platinum { background: linear-gradient(145deg, rgba(9,25,48,0.98), rgba(8,11,18,0.98) 52%, rgba(62,41,13,0.8)); }
+
+  /* E-voucher card background */
+  .lanna-evoucher-card { background: linear-gradient(145deg, rgba(236,253,245,0.96), rgba(240,255,250,0.98)); }
+  .dark .lanna-evoucher-card { background: linear-gradient(145deg, rgba(8,47,39,0.92), rgba(7,15,12,0.98)); }
 }
 
 @keyframes moments-marquee {
@@ -258,3 +358,64 @@
     transform: translateX(-50%);
   }
 }
+
+/* ─── Light-mode high-specificity overrides for lanna panels ─────────────── */
+/* These override Tailwind amber/emerald utility classes inside panel contexts */
+
+:root:not(.dark) .ae-panel .text-amber-50,
+:root:not(.dark) .ae-panel .text-amber-100,
+:root:not(.dark) .ae-package-card .text-amber-50,
+:root:not(.dark) .ae-package-card .text-amber-100,
+:root:not(.dark) .ae-glass .text-amber-50,
+:root:not(.dark) .ae-glass .text-amber-100,
+:root:not(.dark) .lanna-pkg-shell .text-amber-50,
+:root:not(.dark) .lanna-pkg-shell .text-amber-100 { color: var(--lanna-text); }
+
+:root:not(.dark) .ae-panel .text-amber-100\/70,
+:root:not(.dark) .ae-panel .text-amber-100\/80,
+:root:not(.dark) .ae-panel .text-amber-100\/60,
+:root:not(.dark) .ae-panel .text-amber-100\/50,
+:root:not(.dark) .ae-panel .text-amber-50\/80,
+:root:not(.dark) .ae-package-card .text-amber-100\/80,
+:root:not(.dark) .ae-package-card .text-amber-50\/80,
+:root:not(.dark) .ae-package-card .text-amber-50\/90,
+:root:not(.dark) .ae-glass .text-amber-100\/70,
+:root:not(.dark) .ae-glass .text-amber-100\/80,
+:root:not(.dark) .ae-glass .text-amber-100\/60,
+:root:not(.dark) .lanna-pkg-shell .text-amber-100\/70,
+:root:not(.dark) .lanna-pkg-shell .text-amber-100\/80,
+:root:not(.dark) .lanna-pkg-shell .text-amber-100\/50 { color: var(--lanna-text-muted); }
+
+:root:not(.dark) .ae-panel .text-amber-200,
+:root:not(.dark) .ae-package-card .text-amber-200,
+:root:not(.dark) .ae-glass .text-amber-200 { color: var(--lanna-accent-text); }
+
+:root:not(.dark) .ae-panel .text-amber-300\/60,
+:root:not(.dark) .ae-package-card .text-amber-300\/60 { color: var(--lanna-accent-text); }
+
+/* Sub-card backgrounds inside panels */
+:root:not(.dark) .ae-panel .bg-white\/5,
+:root:not(.dark) .ae-package-card .bg-white\/5 { background: var(--lanna-sub-bg); }
+:root:not(.dark) .ae-panel .bg-\[\#17120d\]\/80,
+:root:not(.dark) .ae-panel .bg-\[\#17120d\]\/90 { background: var(--lanna-sub-bg); }
+
+/* Icon accent areas */
+:root:not(.dark) .ae-panel .bg-amber-300\/10,
+:root:not(.dark) .ae-glass .bg-amber-300\/10 { background: var(--lanna-accent-bg); }
+:root:not(.dark) .ae-panel .border-amber-300\/10,
+:root:not(.dark) .ae-panel .border-amber-200\/10,
+:root:not(.dark) .ae-package-card .border-amber-200\/10,
+:root:not(.dark) .ae-glass .border-amber-300\/10,
+:root:not(.dark) .ae-glass .border-amber-300\/20 { border-color: var(--lanna-accent-border); }
+
+/* Trigger hover inside accordion panels */
+:root:not(.dark) .ae-package-card .text-amber-50\/90 { color: var(--lanna-text); }
+
+/* E-voucher (emerald) light-mode overrides */
+:root:not(.dark) .lanna-evoucher-card .text-emerald-50,
+:root:not(.dark) .ae-glass .text-emerald-50 { color: #065f46; }
+:root:not(.dark) .lanna-evoucher-card .text-emerald-100\/70,
+:root:not(.dark) .ae-glass .text-emerald-100\/70,
+:root:not(.dark) .ae-glass .text-emerald-100\/60 { color: rgba(6,95,70,0.70); }
+:root:not(.dark) .ae-glass .text-emerald-200 { color: #059669; }
+:root:not(.dark) .lanna-evoucher-card .text-emerald-300\/70 { color: #059669; }

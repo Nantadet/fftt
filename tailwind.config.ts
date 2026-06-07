@@ -81,5 +81,24 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  // daisyUI plugin provides theme utilities (light/dark)
+  plugins: [require("tailwindcss-animate"), require("daisyui")],
+  daisyui: {
+    themes: [
+      {
+        light: {
+          primary: "#06b6d4",
+          "primary-focus": "#0891b2",
+          secondary: "#f3f4f6",
+          accent: "#fde68a",
+          neutral: "#111827",
+          base100: "#ffffff",
+        },
+      },
+      "dark",
+    ],
+    darkTheme: "dark",
+    utils: true,
+    logs: false,
+  },
 } satisfies Config;

@@ -78,34 +78,34 @@ const tierThemes: Record<
   }
 > = {
   bronze: {
-    card: "border-[#c47a3d]/30 bg-[linear-gradient(145deg,rgba(65,35,20,0.94),rgba(18,12,10,0.98))] shadow-[0_20px_58px_rgba(79,38,14,0.24)]",
+    card: "tier-card-bronze border-[#c47a3d]/30 shadow-[0_20px_58px_rgba(79,38,14,0.10)] dark:shadow-[0_20px_58px_rgba(79,38,14,0.24)]",
     icon: "bg-[linear-gradient(145deg,#8f4b24,#d28a4a,#f0c08d)] text-amber-50 ring-[#d28a4a]/40",
-    accent: "text-[#f0c08d]",
-    title: "text-[#f4caa4]",
+    accent: "text-amber-800 dark:text-[#f0c08d]",
+    title: "text-[#7a3d10] dark:text-[#f4caa4]",
     tag: "from-[#7c351a]/90 via-[#c47a3d]/80 to-[#f0b36b]/80 text-amber-50 shadow-[0_0_24px_rgba(196,122,61,0.36)]",
     hover: "hover:border-[#f0b36b]/50",
   },
   silver: {
-    card: "border-slate-300/30 bg-[linear-gradient(145deg,rgba(47,53,61,0.94),rgba(13,15,18,0.98))] shadow-[0_20px_58px_rgba(15,23,42,0.28)]",
+    card: "tier-card-silver border-slate-300/30 shadow-[0_20px_58px_rgba(100,116,139,0.10)] dark:shadow-[0_20px_58px_rgba(15,23,42,0.28)]",
     icon: "bg-[linear-gradient(145deg,#6b7280,#d1d5db,#f8fafc)] text-slate-950 ring-slate-300/40",
-    accent: "text-slate-200",
-    title: "text-slate-100",
+    accent: "text-slate-600 dark:text-slate-200",
+    title: "text-slate-700 dark:text-slate-100",
     tag: "from-slate-500/90 via-slate-300/70 to-white/60 text-slate-950 shadow-[0_0_24px_rgba(203,213,225,0.28)]",
     hover: "hover:border-slate-200/50",
   },
   gold: {
-    card: "border-amber-300/30 bg-[linear-gradient(145deg,rgba(86,54,13,0.96),rgba(21,14,7,0.98))] shadow-[0_22px_64px_rgba(180,83,9,0.26)]",
+    card: "tier-card-gold border-amber-300/30 shadow-[0_22px_64px_rgba(180,83,9,0.12)] dark:shadow-[0_22px_64px_rgba(180,83,9,0.26)]",
     icon: "bg-[linear-gradient(145deg,#b45309,#f59e0b,#fde68a)] text-stone-950 ring-amber-200/50",
-    accent: "text-amber-200",
-    title: "text-amber-100",
+    accent: "text-amber-700 dark:text-amber-200",
+    title: "text-amber-800 dark:text-amber-100",
     tag: "from-amber-500/95 via-yellow-300/80 to-amber-100/80 text-stone-950 shadow-[0_0_30px_rgba(245,158,11,0.42)]",
     hover: "hover:border-amber-200/60",
   },
   platinum: {
-    card: "border-amber-200/40 bg-[linear-gradient(145deg,rgba(9,25,48,0.98),rgba(8,11,18,0.98)_52%,rgba(62,41,13,0.8))] shadow-[0_24px_72px_rgba(15,23,42,0.42),0_0_34px_rgba(251,191,36,0.16)]",
+    card: "tier-card-platinum border-amber-200/40 shadow-[0_24px_72px_rgba(15,23,42,0.12)] dark:shadow-[0_24px_72px_rgba(15,23,42,0.42),0_0_34px_rgba(251,191,36,0.16)]",
     icon: "bg-[linear-gradient(145deg,#0f2f5a,#174d87,#f6d36b)] text-amber-50 ring-amber-200/50",
-    accent: "text-amber-200",
-    title: "text-amber-50",
+    accent: "text-blue-700 dark:text-amber-200",
+    title: "text-[#1e3a5f] dark:text-amber-50",
     tag: "from-sky-900/90 via-amber-300/80 to-yellow-100/80 text-stone-950 shadow-[0_0_34px_rgba(251,191,36,0.46)]",
     hover: "hover:border-amber-100/70",
   },
@@ -579,7 +579,7 @@ function EvoucherAccordion({ opt }: { opt: EvoucherOption }) {
   return (
     <AccordionItem
       value={opt.id}
-      className="ae-package-card overflow-hidden rounded-[1.25rem] border border-emerald-300/25 bg-[linear-gradient(145deg,rgba(8,47,39,0.92),rgba(7,15,12,0.98))] shadow-[0_18px_46px_rgba(0,0,0,0.24)]"
+      className="lanna-evoucher-card ae-package-card overflow-hidden rounded-[1.25rem] border border-emerald-400/30 dark:border-emerald-300/25 shadow-[0_18px_46px_rgba(6,78,59,0.10)] dark:shadow-[0_18px_46px_rgba(0,0,0,0.24)]"
     >
       <AccordionTrigger className="px-5 py-5 transition-colors hover:bg-white/[0.045] hover:no-underline">
         <div className="flex w-full items-center gap-4 pr-2 text-left">
@@ -667,7 +667,7 @@ function scrollToOpenItem(value: string) {
 
 export default function SponsorshipPackages() {
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#080706_0%,#1c120c_48%,#090807_100%)] text-amber-50">
+    <div className="lanna-pkg-shell min-h-screen">
       {/* Fixed Contact Button */}
       <div className="fixed top-4 left-4 z-50">
         <ContactPopover />
@@ -689,14 +689,14 @@ export default function SponsorshipPackages() {
         <div className="relative z-10 mx-auto max-w-3xl text-center">
           <Badge
             variant="secondary"
-            className="mb-4 border-amber-200/20 bg-white/10 text-amber-50 backdrop-blur-sm hover:bg-white/20"
+            className="mb-4 border-amber-200/20 bg-white/10 !text-white backdrop-blur-sm hover:bg-white/20"
           >
             ประจำปีการศึกษา 2569
           </Badge>
-          <h1 className="font-lanna text-4xl font-extrabold leading-tight text-amber-50 drop-shadow-lg sm:text-5xl">
+          <h1 className="font-lanna text-4xl font-extrabold leading-tight !text-white drop-shadow-lg sm:text-5xl">
             สิทธิประโยชน์ของผู้สนับสนุน
           </h1>
-          <p className="mt-2 text-sm font-semibold uppercase tracking-[0.22em] text-amber-100/80 drop-shadow-md">
+          <p className="mt-2 text-sm font-semibold uppercase tracking-[0.22em] !text-white/80 drop-shadow-md">
             How to Live and Learn on Campus 2026
           </p>
         </div>
@@ -766,7 +766,7 @@ export default function SponsorshipPackages() {
         </section>
 
         {/* Footer */}
-        <div className="pb-8 text-center text-xs text-amber-100/50">
+        <div className="pb-8 text-center text-xs text-amber-800/50 dark:text-amber-100/50">
           <p>How to Live and Learn on Campus 2026</p>
         </div>
       </div>
