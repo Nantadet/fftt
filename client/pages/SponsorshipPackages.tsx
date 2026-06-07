@@ -127,6 +127,7 @@ function getBenefitChips(text: string): string[] {
   if (lower.includes("reels")) chips.push("Reels");
   if (lower.includes("short ads")) chips.push("Short Ads");
   if (lower.includes("tiktok")) chips.push("TikTok Content");
+  if (lower.includes("ไลฟ์สด") || lower.includes("live")) chips.push("Live Promotion");
   if (lower.includes("2.1") || lower.includes("2.2")) chips.push("MC Mention");
   if (lower.includes("facebook") || lower.includes("instagram")) chips.push("Social Media");
   if (lower.includes("booth") || lower.includes("à¸šà¸¹à¸˜")) chips.push("Booth Space");
@@ -136,6 +137,13 @@ function getBenefitChips(text: string): string[] {
 
 function detectMediaType(text: string): { icon: React.ReactNode; label: string; style: React.CSSProperties } | null {
   const lower = text.toLowerCase();
+  if (lower.includes("ไลฟ์สด") || lower.includes("live")) {
+    return {
+      icon: <MonitorPlay className="h-3.5 w-3.5" />,
+      label: "Live",
+      style: { background: "linear-gradient(90deg, #E1306C, #FE2C55, #25F4EE)", color: "#fff" },
+    };
+  }
   if (lower.includes("tiktok")) {
     return {
       icon: <Music className="h-3.5 w-3.5" />,
@@ -219,7 +227,7 @@ function MediaBanner({ text }: { text: string }) {
 type MediaExample = {
   label: string;
   meta: string;
-  href: string;
+  href?: string;
   platform: string;
   thumbnail?: string;
   gradient: string;
@@ -229,6 +237,10 @@ type MediaExample = {
 function getMediaExamples(text: string, description = ""): MediaExample[] {
   const combinedText = `${text} ${description}`;
   const lower = combinedText.toLowerCase();
+
+  if (lower.includes("ไลฟ์สด") || lower.includes("live")) {
+    return [];
+  }
 
   if (lower.includes("photo set")) {
     const photoSetExamples = [
@@ -313,42 +325,60 @@ function MediaExampleLinks({ text, description }: { text: string; description?: 
 
   return (
     <div className={`mt-3 grid gap-2 ${examples.length > 1 ? "sm:grid-cols-2" : ""}`}>
-      {examples.map((example) => (
-        <a
-          key={example.href}
-          href={example.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group relative min-h-[92px] overflow-hidden rounded-2xl border border-amber-200/20 bg-slate-950 text-white shadow-[0_14px_34px_rgba(0,0,0,0.24)] transition hover:-translate-y-0.5 hover:border-amber-200/40 hover:shadow-[0_18px_44px_rgba(0,0,0,0.32)] focus:outline-none focus:ring-2 focus:ring-amber-300"
-        >
-          {example.thumbnail ? (
-            <img
-              src={example.thumbnail}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
-            />
-          ) : (
-            <>
-              <div className="absolute inset-0 bg-[linear-gradient(135deg,#100b08_0%,#25160b_56%,#090807_100%)]" />
-              <div className={`absolute inset-0 bg-gradient-to-r ${example.gradient} opacity-35`} />
-            </>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/50" />
-          <div className="relative flex min-h-[92px] items-end justify-between gap-3 p-3.5">
-            <div className="min-w-0">
-              <div className="mb-1 inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white/90 backdrop-blur-sm">
-                {example.icon}
-                {example.platform}
+      {examples.map((example) => {
+        const cardClasses =
+          "group relative min-h-[92px] overflow-hidden rounded-2xl border border-amber-200/20 bg-slate-950 text-white shadow-[0_14px_34px_rgba(0,0,0,0.24)] transition hover:-translate-y-0.5 hover:border-amber-200/40 hover:shadow-[0_18px_44px_rgba(0,0,0,0.32)] focus:outline-none focus:ring-2 focus:ring-amber-300";
+        const cardContent = (
+          <>
+            {example.thumbnail ? (
+              <img
+                src={example.thumbnail}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-[linear-gradient(135deg,#100b08_0%,#25160b_56%,#090807_100%)]" />
+                <div className={`absolute inset-0 bg-gradient-to-r ${example.gradient} opacity-35`} />
+              </>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/50" />
+            <div className="relative flex min-h-[92px] items-end justify-between gap-3 p-3.5">
+              <div className="min-w-0">
+                <div className="mb-1 inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white/90 backdrop-blur-sm">
+                  {example.icon}
+                  {example.platform}
+                </div>
+                <p className="truncate text-sm font-extrabold text-amber-50">{example.label}</p>
+                <p className="text-[11px] font-semibold text-amber-100/80">{example.meta}</p>
               </div>
-              <p className="truncate text-sm font-extrabold text-amber-50">{example.label}</p>
-              <p className="text-[11px] font-semibold text-amber-100/80">{example.meta}</p>
+              <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white text-slate-900 shadow-sm transition group-hover:scale-105">
+                {example.href ? (
+                  <ExternalLink className="h-4 w-4" />
+                ) : (
+                  <MonitorPlay className="h-4 w-4" />
+                )}
+              </span>
             </div>
-            <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-white text-slate-900 shadow-sm transition group-hover:scale-105">
-              <ExternalLink className="h-4 w-4" />
-            </span>
+          </>
+        );
+
+        return example.href ? (
+          <a
+            key={`${example.label}-${example.platform}`}
+            href={example.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cardClasses}
+          >
+            {cardContent}
+          </a>
+        ) : (
+          <div key={`${example.label}-${example.platform}`} className={cardClasses}>
+            {cardContent}
           </div>
-        </a>
-      ))}
+        );
+      })}
     </div>
   );
 }
@@ -694,6 +724,26 @@ export default function SponsorshipPackages() {
           <CategoryNotes category={cashSponsorship} />
         </section>
 
+        {/* E-Voucher */}
+        <section>
+          <div className="ae-glass mb-4 flex items-center gap-3 rounded-2xl px-4 py-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-300/20 bg-emerald-300/10">
+              <Ticket className="h-5 w-5 text-emerald-200" />
+            </div>
+            <div>
+              <h2 className="font-lanna text-xl font-bold text-emerald-50">E-Voucher (เพิ่มเติม)</h2>
+              <p className="text-sm text-emerald-100/60">
+                สำหรับ Package Platinum ฝั่งทุนทรัพย์
+              </p>
+            </div>
+          </div>
+          <Accordion type="single" collapsible className="w-full space-y-3" onValueChange={scrollToOpenItem}>
+            {evoucherOptions.map((opt) => (
+              <EvoucherAccordion key={opt.id} opt={opt} />
+            ))}
+          </Accordion>
+        </section>
+
         {/* Prize Sponsorship */}
         <section>
           <div className="ae-glass mb-4 flex items-center gap-3 rounded-2xl px-4 py-3">
@@ -713,26 +763,6 @@ export default function SponsorshipPackages() {
             ))}
           </Accordion>
           <CategoryNotes category={prizeSponsorship} />
-        </section>
-
-        {/* E-Voucher */}
-        <section>
-          <div className="ae-glass mb-4 flex items-center gap-3 rounded-2xl px-4 py-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-300/20 bg-emerald-300/10">
-              <Ticket className="h-5 w-5 text-emerald-200" />
-            </div>
-            <div>
-              <h2 className="font-lanna text-xl font-bold text-emerald-50">E-Voucher (เพิ่มเติม)</h2>
-              <p className="text-sm text-emerald-100/60">
-                ตัวเลือกสำหรับผู้สนับสนุน
-              </p>
-            </div>
-          </div>
-          <Accordion type="single" collapsible className="w-full space-y-3" onValueChange={scrollToOpenItem}>
-            {evoucherOptions.map((opt) => (
-              <EvoucherAccordion key={opt.id} opt={opt} />
-            ))}
-          </Accordion>
         </section>
 
         {/* Footer */}

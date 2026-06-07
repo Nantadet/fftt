@@ -106,7 +106,8 @@ export default function SponsorHome() {
 
                 <p className="max-w-2xl text-base font-semibold leading-9 text-white sm:text-lg">
                   <span className="hero-text-chip">
-                    {t.title} HLLC 2026 at Mae Fah Luang University.
+                    {t.title} HLLC 2026 at{" "}
+                    <span className="whitespace-nowrap">Mae Fah Luang University.</span>
                   </span>
                 </p>
 
